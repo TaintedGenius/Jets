@@ -12,7 +12,7 @@
     <file path="/Game.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381522840405" ignored="false" />
     <file path="/Menu.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381576105552" ignored="false" />
     <file path="/TestMenu.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381574717008" ignored="false" />
-    <file path="/Dummy.txt" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381602042252" ignored="false" />
+    <file path="/Dummy.txt" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381602047904" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -334,7 +334,11 @@
       <created>1381602043504</created>
       <updated>1381602043504</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Project">
+      <created>1381602049401</created>
+      <updated>1381602049401</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
