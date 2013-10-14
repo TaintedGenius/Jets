@@ -18,6 +18,8 @@ public class Menu extends BasicGameState {
     private TextField textFieldTwo;
     private boolean textOneSelect = true;
 
+    private Ship ship;
+
     public Menu ( int ID ) {
         this.ID = ID;
     }
@@ -29,46 +31,31 @@ public class Menu extends BasicGameState {
 
     @Override
     public void init ( GameContainer gameContainer, StateBasedGame stateBasedGame ) throws SlickException {
-        image = new Image( "ship.png" );
         textField = new TextField(gameContainer, gameContainer.getDefaultFont(),0, 0, 200, 40);
         textField.setBackgroundColor( Color.gray );
 
         textFieldTwo = new TextField(gameContainer, gameContainer.getDefaultFont(),0, 60, 200, 40);
         textFieldTwo.setBackgroundColor( Color.gray );
         textField.setFocus( true );
+
+        ship = new Ship( 1, 3, "ship.png" );
     }
 
-    int x, y;
     @Override
     public void render ( GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics ) throws SlickException {
-        image.draw();
-        textField.render( gameContainer, graphics );
-        textFieldTwo.render( gameContainer, graphics );
-        graphics.drawString( x + " " + y, 200, 200 );
-        if ( textOneSelect ) {
-            textField.setFocus( true );
-        } else {
-            textFieldTwo.setFocus( true );
-        }
+        //image.draw();
+        ship.draw();
 
+        graphics.drawString( String.valueOf( ship.updateAngle( Mouse.getX(), Mouse.getY() ) ), 100, 0 );
     }
 
     @Override
     public void update ( GameContainer gameContainer, StateBasedGame stateBasedGame, int i ) throws SlickException {
-        x = Mouse.getX();
-        y = Mouse.getY();
+        Input input = gameContainer.getInput();
 
 
-        if ( Mouse.getX() > 0 && Mouse.getX() < 200 && Mouse.getY() > 360 && Mouse.getY() < 400) {
-            if ( Mouse.isButtonDown( 0 )) {
-                textOneSelect = true;
-            }
-        }
-
-        if ( Mouse.getX() > 0 && Mouse.getX() < 200 && Mouse.getY() > 300 && Mouse.getY() < 340) {
-            if ( Mouse.isButtonDown( 0 )) {
-                textOneSelect = false;
-            }
+        if ( input.isKeyDown( Input.KEY_W ) ) {
+            ship.moveForward( );
         }
     }
 }
