@@ -15,15 +15,17 @@ public class Ship {
     private float y;
 
     private int angleSpeed;
+    private float speed;
 
     private int finalAngle;
     private int currentAngle;
 
     private Image image;
 
-    public Ship( int angleSpeed, String fileName ) throws SlickException {
+    public Ship( float speed, int angleSpeed, String fileName ) throws SlickException {
         image = new Image( fileName );
 
+        this.speed = speed;
         this.angleSpeed = angleSpeed;
 
         x = 182;
@@ -32,7 +34,7 @@ public class Ship {
         currentAngle = 0;
     }
 
-    private int makeDiv ( int value, int div ) {
+    private int makeDiv( int value, int div ) {
         if ( value % div == 0 ) {
             return value;
         } else {
@@ -86,7 +88,20 @@ public class Ship {
         }
     }
 
-    public float getCurrentAngle() {
+    public void moveForward() {
+        double calCos = Math.cos( currentAngle ) * speed;
+        double calSin = Math.sin( currentAngle ) * speed;
+                                            //weight
+        if ( x - calCos >= 0 && x - calCos < 1920 - 500 ) {
+            x -= calCos;
+        }
+                                            //height
+        if ( y + calSin >= 0 && y + calSin < 1200 - 400 ) {
+            y += calSin;
+        }
+    }
+
+    public float getX() {
         return (float) Math.toRadians( currentAngle );
     }
 

@@ -24,22 +24,4 @@ public class Map {
 
         this.shipVelocity = shipVelocity;
     }
-
-    public void updateMap() {
-        image.draw( (int) shiftX, (int) shiftY );
-    }
-
-    public void moveForward( float shipAngle ) {
-        calCos = Math.cos( shipAngle ) * shipVelocity;
-        calSin = Math.sin( shipAngle ) * shipVelocity;
-                                                        //weight
-        if ( shiftX - calCos <= 0 && shiftX - calCos > -1920 + 500 ) {
-            shiftX -= calCos;
-        }
-                                                        //height
-        if ( shiftY + calSin <= 0 && shiftY + calSin > -1200 + 400 ) {
-            shiftY += calSin;
-        }
-    }
-
 }

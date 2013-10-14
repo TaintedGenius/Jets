@@ -39,9 +39,9 @@ public class Menu extends BasicGameState {
         textFieldTwo.setBackgroundColor( Color.gray );
         textField.setFocus( true );
 
-        ship = new Ship( 2, "ship.png" );
+        ship = new Ship( 5, 2, "ship.png" );
 
-        map = new Map( 3, "map.jpg" );
+        map = new Map( 5, "map.jpg" );
     }
 
     @Override
