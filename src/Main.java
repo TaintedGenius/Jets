@@ -15,7 +15,8 @@ public class Main extends StateBasedGame {
     public static void main(String [] arguments) {
         try {
             AppGameContainer app = new AppGameContainer(new Main("Game"));
-            app.setDisplayMode(500, 400, false);
+            app.setDisplayMode( 500, 400, false );
+            //app.setFullscreen( true );
             //app.setShowFPS( false );
             app.setTargetFrameRate( 60 );
             app.start();

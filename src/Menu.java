@@ -19,6 +19,7 @@ public class Menu extends BasicGameState {
     private boolean textOneSelect = true;
 
     private Ship ship;
+    private Map map;
 
     public Menu ( int ID ) {
         this.ID = ID;
@@ -38,15 +39,18 @@ public class Menu extends BasicGameState {
         textFieldTwo.setBackgroundColor( Color.gray );
         textField.setFocus( true );
 
-        ship = new Ship( 1, 3, "ship.png" );
+        ship = new Ship( 2, "ship.png" );
+
+        map = new Map( 3, "map.jpg" );
     }
 
     @Override
     public void render ( GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics ) throws SlickException {
         //image.draw();
+        map.updateMap();
         ship.draw();
 
-        graphics.drawString( String.valueOf( ship.updateAngle( Mouse.getX(), Mouse.getY() ) ), 100, 0 );
+        ship.updateAngle( Mouse.getX(), Mouse.getY() );
     }
 
     @Override
@@ -55,7 +59,7 @@ public class Menu extends BasicGameState {
 
 
         if ( input.isKeyDown( Input.KEY_W ) ) {
-            ship.moveForward( );
+            map.moveForward( ship.getCurrentAngle() );
         }
     }
 }

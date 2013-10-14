@@ -13,7 +13,6 @@ public class Ship {
 
     private float x;
     private float y;
-    private float velocity;
 
     private int angleSpeed;
 
@@ -22,10 +21,9 @@ public class Ship {
 
     private Image image;
 
-    public Ship( float velocity, int angleSpeed, String fileName ) throws SlickException {
+    public Ship( int angleSpeed, String fileName ) throws SlickException {
         image = new Image( fileName );
 
-        this.velocity = velocity;
         this.angleSpeed = angleSpeed;
 
         x = 182;
@@ -46,7 +44,7 @@ public class Ship {
         }
     }
 
-    public float updateAngle( int mouseX, int mouseY ) {
+    public void updateAngle( int mouseX, int mouseY ) {
         finalAngle = (int) Math.round( Math.toDegrees( Math.atan( (float) ( mouseY - 200 ) / ( mouseX - 250 ) ) ) );
         finalAngle = makeDiv( finalAngle, angleSpeed );
 
@@ -86,12 +84,10 @@ public class Ship {
                 image.rotate( angleSpeed );
             }
         }
-
-        return currentAngle;
     }
 
-    public void moveForward() {
-
+    public float getCurrentAngle() {
+        return (float) Math.toRadians( currentAngle );
     }
 
     public void draw( ) {
