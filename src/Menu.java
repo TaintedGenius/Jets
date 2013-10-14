@@ -47,7 +47,7 @@ public class Menu extends BasicGameState {
     @Override
     public void render ( GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics ) throws SlickException {
         //image.draw();
-        map.updateMap();
+        //map.updateMap();
         ship.draw();
 
         ship.updateAngle( Mouse.getX(), Mouse.getY() );
@@ -59,7 +59,7 @@ public class Menu extends BasicGameState {
 
 
         if ( input.isKeyDown( Input.KEY_W ) ) {
-            map.moveForward( ship.getCurrentAngle() );
+            //map.moveForward( ship.getCurrentAngle() );
         }
     }
 }
