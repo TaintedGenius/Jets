@@ -39,7 +39,7 @@ public class Menu extends BasicGameState {
         textFieldTwo.setBackgroundColor( Color.gray );
         textField.setFocus( true );
 
-        ship = new Ship( 5, 2, "ship.png" );
+        ship = new Ship( 5, 1.1f, "ship.png" );
 
         map = new Map( 5, "map.jpg" );
     }
@@ -50,7 +50,7 @@ public class Menu extends BasicGameState {
         //map.updateMap();
         ship.draw();
 
-        ship.updateAngle( Mouse.getX(), Mouse.getY() );
+        ship.updateAngle( Mouse.getX(), Mouse.getY(), graphics );
     }
 
     @Override
@@ -59,7 +59,7 @@ public class Menu extends BasicGameState {
 
 
         if ( input.isKeyDown( Input.KEY_W ) ) {
-            //map.moveForward( ship.getCurrentAngle() );
+            ship.moveForward();
         }
     }
 }
