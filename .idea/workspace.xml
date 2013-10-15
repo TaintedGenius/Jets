@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7838602-6715-418a-9d42-ea8b429f295f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/BasicObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/Vlad.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Menu.java" afterPath="$PROJECT_DIR$/src/Menu.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ship.java" afterPath="$PROJECT_DIR$/src/Ship.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -17,8 +14,8 @@
     <file path="/Game.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381522840405" ignored="false" />
     <file path="/Menu.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381860225952" ignored="false" />
     <file path="/TestMenu.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381574717008" ignored="false" />
-    <file path="/Dummy.txt" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381856496602" ignored="false" />
-    <file path="/Ship.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381869151118" ignored="false" />
+    <file path="/Dummy.txt" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381869456619" ignored="false" />
+    <file path="/Ship.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381869656783" ignored="false" />
     <file path="/Map.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381758538842" ignored="false" />
     <file path="/BasicObject.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381859591163" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -94,7 +91,7 @@
       <file leaf-file-name="Ship.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Ship.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="51" selection-start="2547" selection-end="2547" vertical-scroll-proportion="0.40807176">
+            <state line="92" column="59" selection-start="3219" selection-end="3219" vertical-scroll-proportion="1.3288491">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -116,7 +113,7 @@
       <file leaf-file-name="Menu.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Menu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="31" selection-start="1286" selection-end="1286" vertical-scroll-proportion="0.0">
+            <state line="46" column="18" selection-start="1363" selection-end="1363" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -400,7 +397,11 @@
       <created>1381759354905</created>
       <updated>1381759354905</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="change rotate">
+      <created>1381869461798</created>
+      <updated>1381869461798</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -491,7 +492,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="map" />
+    <option name="LAST_COMMIT_MESSAGE" value="change rotate" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -509,6 +510,7 @@
     <MESSAGE value="add ship" />
     <MESSAGE value="add ship 2" />
     <MESSAGE value="map" />
+    <MESSAGE value="change rotate" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -581,6 +583,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Menu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="18" selection-start="1363" selection-end="1363" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Map.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="48" selection-start="380" selection-end="380" vertical-scroll-proportion="0.0">
@@ -604,16 +613,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Menu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="31" selection-start="1286" selection-end="1286" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Ship.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="51" selection-start="2547" selection-end="2547" vertical-scroll-proportion="0.40807176">
+        <state line="92" column="59" selection-start="3219" selection-end="3219" vertical-scroll-proportion="1.3288491">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

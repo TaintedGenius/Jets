@@ -55,43 +55,45 @@ public class Ship extends BasicObject {
             finalAngle = Math.PI - finalAngle;
         }
        // finalAngle = makeDiv( finalAngle, angleSpeed );
+        double temporaryAngle = Math.abs( finalAngle - currentAngle );
 
         graphics.drawString( "Final: " + String.valueOf( finalAngle ), 0, 0 );
         graphics.drawString( "Current: " + String.valueOf( currentAngle ), 0, 15 );
-        graphics.drawString( "MouseY: " + String.valueOf( mouseY ), 0, 30 );
+        graphics.drawString( "Temo: " + String.valueOf( temporaryAngle ), 0, 30 );
         //graphics.drawString( "x : " + String.valueOf( x ) + "y: " + String.valueOf( y ), 0, 45 );
 
 
 
-        double temporaryAngle = Math.abs( finalAngle - currentAngle );
-        if ( temporaryAngle < CIRCLE_DEGREE - temporaryAngle && ( temporaryAngle > angleSpeed || temporaryAngle < angleSpeed ) ) {
-            if ( currentAngle < finalAngle ) {
-                currentAngle += angleSpeed;
-                image.rotate(  -speedRotate );
-            } else if ( currentAngle > finalAngle ) {
-                currentAngle -= angleSpeed;
-                image.rotate( speedRotate );
-            }
-        } else {
-            if ( currentAngle < finalAngle ) {
-                if ( currentAngle >= 0 && currentAngle < angleSpeed ) {
-                    currentAngle = CIRCLE_DEGREE;
+        if ( temporaryAngle > angleSpeed ) {
+            if ( temporaryAngle < CIRCLE_DEGREE - temporaryAngle ) {
+                if ( currentAngle < finalAngle ) {
+                    currentAngle += angleSpeed;
+                    image.rotate(  -speedRotate );
+                } else if ( currentAngle > finalAngle ) {
+                    currentAngle -= angleSpeed;
+                    image.rotate( speedRotate );
                 }
-                currentAngle -= angleSpeed;
-                image.rotate( speedRotate );
-            } else if ( currentAngle > finalAngle ) {
-                if ( currentAngle >= CIRCLE_DEGREE - angleSpeed ) {
-                    currentAngle = -angleSpeed;
+            } else {
+                if ( currentAngle < finalAngle ) {
+                    if ( currentAngle >= 0 && currentAngle < angleSpeed ) {
+                        currentAngle = CIRCLE_DEGREE;
+                    }
+                    currentAngle -= angleSpeed;
+                    image.rotate( speedRotate );
+                } else if ( currentAngle > finalAngle ) {
+                    if ( currentAngle >= CIRCLE_DEGREE - angleSpeed ) {
+                        currentAngle = -angleSpeed;
+                    }
+                    currentAngle += angleSpeed;
+                    image.rotate( -speedRotate );
                 }
-                currentAngle += angleSpeed;
-                image.rotate( -speedRotate );
             }
         }
     }
 
     void moveForward( ) {
-        double calCos = Math.cos( currentAngle );
-        double calSin = Math.sin( currentAngle );
+        double calCos = Math.cos( currentAngle ) * 2;
+        double calSin = Math.sin( currentAngle ) * 2;
 
         if ( ( x + calCos >= image.getCenterOfRotationX() && x + calCos < 1920 - image.getCenterOfRotationX() )  &&
                 ( y - calSin >= image.getCenterOfRotationY() && y - calSin < 1200 - image.getCenterOfRotationY() ) ) {
