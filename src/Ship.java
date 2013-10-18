@@ -10,6 +10,7 @@ import org.newdawn.slick.*;
 public class Ship extends BasicObject {
     private final double CIRCLE_DEGREE = Math.PI * 2;
     private final double ONE_DEGREE = 0.01745329252;
+    private final double HALF_PI = Math.PI / 2;
 
     private double angleSpeed;
     private double speed;
@@ -89,6 +90,26 @@ public class Ship extends BasicObject {
     void moveBack( ) {
         double calCos = Math.cos( currentAngle ) * speed;
         double calSin = Math.sin( currentAngle ) * speed;
+
+        if ( canMove( x - calCos, y + calSin ) ) {
+            x -= calCos;
+            y += calSin;
+        }
+    }
+
+    void moveLeft( ) {
+        double calCos = Math.cos( currentAngle - HALF_PI ) * speed;
+        double calSin = Math.sin( currentAngle - HALF_PI ) * speed;
+
+        if ( canMove( x - calCos, y + calSin ) ) {
+            x -= calCos;
+            y += calSin;
+        }
+    }
+
+    void moveRight( ) {
+        double calCos = Math.cos( currentAngle + HALF_PI ) * speed;
+        double calSin = Math.sin( currentAngle + HALF_PI ) * speed;
 
         if ( canMove( x - calCos, y + calSin ) ) {
             x -= calCos;

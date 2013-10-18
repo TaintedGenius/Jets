@@ -39,7 +39,7 @@ public class Menu extends BasicGameState {
         textField.setFocus( true );
            // float speed, float angleSpeed, String fileName, String mapPath
         //gameContainer.setFullscreen( true );
-        ship = new Ship( 8.0f, 2.0f, "ship.png", "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
+        ship = new Ship( 5.0f, 3.0f, "ship.png", "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
     }
 
     @Override
@@ -55,12 +55,23 @@ public class Menu extends BasicGameState {
     public void update ( GameContainer gameContainer, StateBasedGame stateBasedGame, int i ) throws SlickException {
         Input input = gameContainer.getInput();
 
-
+        boolean isPress = false;
         if ( input.isKeyDown( Input.KEY_W ) ) {
             ship.moveForward();
+            isPress = true;
         }
         if ( input.isKeyDown( Input.KEY_S ) ) {
             ship.moveBack();
+            isPress = true;
+        }
+
+        if ( !isPress ) {
+            if ( input.isKeyDown( Input.KEY_A ) ) {
+                ship.moveLeft();
+            }
+            if ( input.isKeyDown( Input.KEY_D ) ) {
+                ship.moveRight();
+            }
         }
     }
 }
