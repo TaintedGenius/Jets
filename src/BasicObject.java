@@ -1,3 +1,4 @@
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -17,18 +18,26 @@ public abstract class BasicObject {
     private int mapWeight;
     protected Image image;
 
-    public BasicObject ( float x, float y, String imagePath ) throws SlickException  {
+
+    public BasicObject ( float x, float y, String imagePath ) throws SlickException {
         this.x = x;
         this.y = y;
         image = new Image( imagePath );
     }
 
-    public BasicObject ( float x, float y, int mapHeight, int mapWeight, String imagePath ) throws SlickException {
-        this.x = x;
-        this.y = y;
+    public void setMapSize ( int mapHeight, int mapWeight ) {
         this.mapHeight = mapHeight;
         this.mapWeight = mapWeight;
-        image = new Image( imagePath );
     }
+
+    public boolean canMove ( double x, double y ) {
+        if ( x >= image.getCenterOfRotationX() && x < mapWeight - image.getCenterOfRotationX()
+                && y >= image.getCenterOfRotationY() && y < mapHeight - image.getCenterOfRotationY() ) {
+            return true;
+        }
+        return false;
+    }
+
+    abstract void draw ( );
 
 }

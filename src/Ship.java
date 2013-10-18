@@ -1,9 +1,4 @@
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
-import org.newdawn.slick.Image;
-
-import java.awt.*;
-import java.awt.Graphics;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,96 +12,109 @@ public class Ship extends BasicObject {
     private final double ONE_DEGREE = 0.01745329252;
 
     private double angleSpeed;
-    private float speedRotate;
+    private double speed;
 
     private double finalAngle;
     private double currentAngle;
 
-    public Ship( float speed, float angleSpeed, String fileName ) throws SlickException {
-        super( 250, 200, 1920, 1200, fileName );
+    private int height;
+    private int weight;
+
+    private Map map;
+
+    public Ship( float speed, float angleSpeed, String fileName, String mapPath, int height, int weight ) throws SlickException {
+        super( weight / 2, height / 2, fileName );
 
         this.angleSpeed =  angleSpeed * ONE_DEGREE;
-        this.speedRotate = angleSpeed;
+        this.speed = speed;
+        this.weight = weight;
+        this.height = height;
+                     //String mapPath, int screenWidth, int screenHeight
+        map = new Map( mapPath, weight, height );
+        super.setMapSize( map.getMapHeight(), map.getMapWidth() );
 
         finalAngle = 0;
         currentAngle = 0;
     }
 
-    private int makeDiv( int value, int div ) {
-        if ( value % div == 0 ) {
-            return value;
-        } else {
-            if ( value - ( value / div ) * div < ( value / div + 1 ) * div - value ) {
-                return ( value / div ) * div;
-            } else {
-                return ( value / div + 1 ) * div;
-            }
-        }
-    }
-
-    public void updateAngle( int mouseX, int mouseY,org.newdawn.slick.Graphics graphics) {
-        finalAngle =  Math.atan( ( (400 - mouseY ) - y ) / ( mouseX - x ) );
-        if ( mouseX >= x ) {
+    public void updateAngle( int mouseX, int mouseY, org.newdawn.slick.Graphics graphics ) {
+        finalAngle =  Math.atan( ( (height - mouseY + map.getShiftY() ) - y ) / ( ( mouseX + map.getShiftX()) - x ) );
+        if ( mouseX + map.getShiftX() >= x ) {
             finalAngle = -finalAngle;
-            if ( (400 - mouseY ) >= y ) {
+            if ( (height - mouseY + map.getShiftY() ) >= y ) {
                 finalAngle = Math.PI * 2 + finalAngle;
             }
         } else {
             finalAngle = Math.PI - finalAngle;
         }
-       // finalAngle = makeDiv( finalAngle, angleSpeed );
-        double temporaryAngle = Math.abs( finalAngle - currentAngle );
 
-        graphics.drawString( "Final: " + String.valueOf( finalAngle ), 0, 0 );
-        graphics.drawString( "Current: " + String.valueOf( currentAngle ), 0, 15 );
-        graphics.drawString( "Temo: " + String.valueOf( temporaryAngle ), 0, 30 );
-        //graphics.drawString( "x : " + String.valueOf( x ) + "y: " + String.valueOf( y ), 0, 45 );
-
-
-
-        if ( temporaryAngle > angleSpeed ) {
-            if ( temporaryAngle < CIRCLE_DEGREE - temporaryAngle ) {
+        double deltaAngle = Math.abs( finalAngle - currentAngle );
+        if ( deltaAngle > angleSpeed ) {
+            if ( deltaAngle < CIRCLE_DEGREE - deltaAngle ) {
                 if ( currentAngle < finalAngle ) {
                     currentAngle += angleSpeed;
-                    image.rotate(  -speedRotate );
                 } else if ( currentAngle > finalAngle ) {
                     currentAngle -= angleSpeed;
-                    image.rotate( speedRotate );
                 }
             } else {
                 if ( currentAngle < finalAngle ) {
                     if ( currentAngle >= 0 && currentAngle < angleSpeed ) {
-                        currentAngle = CIRCLE_DEGREE;
+                        currentAngle = CIRCLE_DEGREE + currentAngle;
                     }
                     currentAngle -= angleSpeed;
-                    image.rotate( speedRotate );
                 } else if ( currentAngle > finalAngle ) {
                     if ( currentAngle >= CIRCLE_DEGREE - angleSpeed ) {
-                        currentAngle = -angleSpeed;
+                        currentAngle = -angleSpeed + ( CIRCLE_DEGREE - currentAngle );
                     }
                     currentAngle += angleSpeed;
-                    image.rotate( -speedRotate );
                 }
             }
+        } else if ( deltaAngle < angleSpeed ) {
+            currentAngle = finalAngle;
         }
+        graphics.drawString( String.valueOf( currentAngle * 57.29577 ), 0, 45 );
+        image.setRotation( (float) Math.toDegrees( -currentAngle ) );
     }
 
     void moveForward( ) {
-        double calCos = Math.cos( currentAngle ) * 2;
-        double calSin = Math.sin( currentAngle ) * 2;
+        double calCos = Math.cos( currentAngle ) * speed;
+        double calSin = Math.sin( currentAngle ) * speed;
 
-        if ( ( x + calCos >= image.getCenterOfRotationX() && x + calCos < 1920 - image.getCenterOfRotationX() )  &&
-                ( y - calSin >= image.getCenterOfRotationY() && y - calSin < 1200 - image.getCenterOfRotationY() ) ) {
+        if ( canMove( x + calCos, y - calSin ) ) {
             x += calCos;
             y -= calSin;
         }
     }
 
-    public float getX() {
-        return (float) Math.toRadians( currentAngle );
+    void moveBack( ) {
+        double calCos = Math.cos( currentAngle ) * speed;
+        double calSin = Math.sin( currentAngle ) * speed;
+
+        if ( canMove( x - calCos, y + calSin ) ) {
+            x -= calCos;
+            y += calSin;
+        }
     }
 
     public void draw( ) {
-        image.draw( x - image.getCenterOfRotationX(),  y - image.getCenterOfRotationY() );
+        map.draw( x, y );
+        float dX, dY;
+        if ( map.getShiftX() > 0 ) {
+            dX = weight / 2;
+            if ( map.getShiftX() == map.getMapWidth() - weight ) {
+                dX = x - ( map.getMapWidth() - weight );
+            }
+        } else {
+            dX = x;
+        }
+        if ( map.getShiftY() > 0 ) {
+            dY = height / 2;
+            if ( map.getShiftY() == map.getMapHeight() - height ) {
+                dY = y - ( map.getMapHeight() - height );
+            }
+        } else {
+            dY = y;
+        }
+        image.draw( dX - image.getCenterOfRotationX(), dY - image.getCenterOfRotationY() );
     }
 }

@@ -19,7 +19,6 @@ public class Menu extends BasicGameState {
     private boolean textOneSelect = true;
 
     private Ship ship;
-    private Map map;
 
     public Menu ( int ID ) {
         this.ID = ID;
@@ -38,10 +37,9 @@ public class Menu extends BasicGameState {
         textFieldTwo = new TextField(gameContainer, gameContainer.getDefaultFont(),0, 60, 200, 40);
         textFieldTwo.setBackgroundColor( Color.gray );
         textField.setFocus( true );
-
-        ship = new Ship( 5, 3.0f, "ship.png" );
-
-        map = new Map( 5, "map.jpg" );
+           // float speed, float angleSpeed, String fileName, String mapPath
+        //gameContainer.setFullscreen( true );
+        ship = new Ship( 8.0f, 2.0f, "ship.png", "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
     }
 
     @Override
@@ -49,8 +47,8 @@ public class Menu extends BasicGameState {
         //image.draw();
         //map.updateMap();
         ship.draw();
-
         ship.updateAngle( Mouse.getX(), Mouse.getY(), graphics );
+        graphics.drawString( String.valueOf( gameContainer.getHeight() ), 200, 0 );
     }
 
     @Override
@@ -60,6 +58,9 @@ public class Menu extends BasicGameState {
 
         if ( input.isKeyDown( Input.KEY_W ) ) {
             ship.moveForward();
+        }
+        if ( input.isKeyDown( Input.KEY_S ) ) {
+            ship.moveBack();
         }
     }
 }

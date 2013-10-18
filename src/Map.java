@@ -12,16 +12,48 @@ public class Map {
     private Image image;
     private float shiftX;
     private float shiftY;
-    private float shipVelocity;
+    private int halfScreenWidth;
+    private int halfScreenHeight;
 
-    private double calCos;
-    private double calSin;
-
-    public Map ( float shipVelocity, String mapPath ) throws SlickException {
+    public Map ( String mapPath, int screenWidth, int screenHeight ) throws SlickException {
         image = new Image( mapPath );
-        shiftX = 0;
-        shiftY = 0;
+        halfScreenHeight = screenHeight / 2;
+        halfScreenWidth = screenWidth / 2;
+    }
 
-        this.shipVelocity = shipVelocity;
+    public void draw ( float x, float y ) {
+        if ( x >= halfScreenWidth ) {
+            shiftX = x - halfScreenWidth;
+            if ( x > image.getWidth() - halfScreenWidth ) {
+                shiftX = image.getWidth() - halfScreenWidth * 2;
+            }
+        } else {
+            shiftX = 0;
+        }
+        if ( y >= halfScreenHeight ) {
+            shiftY = y - halfScreenHeight;
+            if ( y >  image.getHeight() - halfScreenHeight ) {
+                shiftY = image.getHeight() - halfScreenHeight * 2;
+            }
+        } else {
+            shiftY = 0;
+        }
+        image.draw( -shiftX, -shiftY );
+    }
+
+    public float getShiftX() {
+        return shiftX;
+    }
+
+    public float getShiftY() {
+        return shiftY;
+    }
+
+    public int getMapWidth () {
+        return image.getWidth();
+    }
+
+    public int getMapHeight () {
+        return image.getHeight();
     }
 }
