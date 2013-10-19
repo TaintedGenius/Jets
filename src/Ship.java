@@ -16,7 +16,6 @@ public class Ship extends BasicObject {
     private double speed;
 
     private double finalAngle;
-    private double currentAngle;
 
     private int height;
     private int weight;
@@ -24,7 +23,7 @@ public class Ship extends BasicObject {
     private Map map;
 
     public Ship( float speed, float angleSpeed, String fileName, String mapPath, int height, int weight ) throws SlickException {
-        super( weight / 2, height / 2, fileName );
+        super( 0, weight / 2, height / 2, fileName );
 
         this.angleSpeed =  angleSpeed * ONE_DEGREE;
         this.speed = speed;
@@ -35,7 +34,6 @@ public class Ship extends BasicObject {
         super.setMapSize( map.getMapHeight(), map.getMapWidth() );
 
         finalAngle = 0;
-        currentAngle = 0;
     }
 
     public void updateAngle( int mouseX, int mouseY, org.newdawn.slick.Graphics graphics ) {

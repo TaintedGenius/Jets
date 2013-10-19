@@ -4,6 +4,9 @@ import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Vlad
@@ -18,7 +21,13 @@ public class Menu extends BasicGameState {
     private TextField textFieldTwo;
     private boolean textOneSelect = true;
 
+    private List<Integer> keyPressList = new ArrayList<Integer>( 4 );
+    private List<Integer> keyPressedList = new ArrayList<Integer>( 4 );
+    private List<Integer> currentKey = new ArrayList<Integer>( 4 );
+
     private Ship ship;
+    private ShellContainer shellContainer;
+    private Image shellImage;
 
     public Menu ( int ID ) {
         this.ID = ID;
@@ -40,6 +49,8 @@ public class Menu extends BasicGameState {
            // float speed, float angleSpeed, String fileName, String mapPath
         //gameContainer.setFullscreen( true );
         ship = new Ship( 5.0f, 3.0f, "ship.png", "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
+        shellContainer = new ShellContainer();
+        shellImage = new Image( "shell.png" );
     }
 
     @Override
@@ -48,30 +59,87 @@ public class Menu extends BasicGameState {
         //map.updateMap();
         ship.draw();
         ship.updateAngle( Mouse.getX(), Mouse.getY(), graphics );
-        graphics.drawString( String.valueOf( gameContainer.getHeight() ), 200, 0 );
+        shellContainer.updateShells();
     }
+
+
+    public void editNew( Input input ) {
+        keyPressList.removeAll( keyPressList );
+        if (input.isKeyDown( Input.KEY_A ) ) {
+            keyPressList.add( Input.KEY_A );
+        }
+        if ( input.isKeyDown( Input.KEY_S ) ) {
+            keyPressList.add( Input.KEY_S );
+        }
+        if ( input.isKeyDown( Input.KEY_W ) ) {
+            keyPressList.add( Input.KEY_W );
+        }
+        if ( input.isKeyDown( Input.KEY_D ) ) {
+            keyPressList.add( Input.KEY_D );
+        }
+    }
+
+    public void editOld( Input input ) {
+        keyPressedList.removeAll( keyPressedList );
+        if (input.isKeyDown( Input.KEY_A ) ) {
+            keyPressedList.add( Input.KEY_A );
+        }
+        if ( input.isKeyDown( Input.KEY_S ) ) {
+            keyPressedList.add( Input.KEY_S );
+        }
+        if ( input.isKeyDown( Input.KEY_W ) ) {
+            keyPressedList.add( Input.KEY_W );
+        }
+        if ( input.isKeyDown( Input.KEY_D ) ) {
+            keyPressedList.add( Input.KEY_D );
+        }
+    }
+
+
 
     @Override
     public void update ( GameContainer gameContainer, StateBasedGame stateBasedGame, int i ) throws SlickException {
         Input input = gameContainer.getInput();
 
-        boolean isPress = false;
-        if ( input.isKeyDown( Input.KEY_W ) ) {
-            ship.moveForward();
-            isPress = true;
-        }
-        if ( input.isKeyDown( Input.KEY_S ) ) {
-            ship.moveBack();
-            isPress = true;
+        editNew( input );
+
+        if ( keyPressList.isEmpty() ) {
+            currentKey.removeAll( currentKey );
+        } else {
+            if ( keyPressList.size() > keyPressedList.size() ) {
+                for ( Integer keyPress : keyPressList ) {
+                    if ( !keyPressedList.contains( keyPress ) ) {
+                        currentKey.add( keyPress );
+                    }
+                }
+            } else if ( keyPressList.size() < keyPressedList.size() ) {
+                for ( Integer keyPressed : keyPressedList ) {
+                    if ( !keyPressList.contains( keyPressed ) ) {
+                        currentKey.remove( keyPressed );
+                    }
+                }
+            }
         }
 
-        if ( !isPress ) {
-            if ( input.isKeyDown( Input.KEY_A ) ) {
+        if ( currentKey.size() > 0 )  {
+            if ( currentKey.get( currentKey.size() - 1 ) == Input.KEY_A ) {
                 ship.moveLeft();
             }
-            if ( input.isKeyDown( Input.KEY_D ) ) {
+            if ( currentKey.get( currentKey.size() - 1 ) == Input.KEY_S ) {
+                ship.moveBack();
+            }
+            if ( currentKey.get( currentKey.size() - 1 ) == Input.KEY_W ) {
+                ship.moveForward();
+            }
+            if ( currentKey.get( currentKey.size() - 1 ) == Input.KEY_D ) {
                 ship.moveRight();
             }
         }
+
+        if ( input.isMouseButtonDown( Input.MOUSE_LEFT_BUTTON ) ) {
+            shellContainer.add( new Shell( ship.getCurrentAngle(), ship.getX(), ship.getY(), 10000, 4.0f, shellImage ) );
+        }
+
+        editOld( input );
     }
 }

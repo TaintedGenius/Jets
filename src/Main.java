@@ -14,11 +14,11 @@ public class Main extends StateBasedGame {
 
     public static void main(String [] arguments) {
         try {
-            AppGameContainer app = new AppGameContainer(new Main("Jets"));
-            app.setDisplayMode( 800, 600, false );
+            AppGameContainer app = new AppGameContainer( new Main( "Jets" ) );
+            app.setDisplayMode( 1024, 768, false );
             app.setTargetFrameRate( 60 );
-            //app.setFullscreen( true );
-            app.setShowFPS( false );
+            app.setVSync( true );
+            app.setShowFPS( true );
             app.start();
         } catch (SlickException e) {
             e.printStackTrace();
