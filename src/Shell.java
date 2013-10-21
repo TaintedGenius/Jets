@@ -15,39 +15,30 @@ public class Shell extends BasicObject {
     private double calCos;
     private double calSin;
 
-    private float speed;
 
-    public Shell ( double currentAngle, float x, float y, int timeToDestroy, float speed, Image image ) throws SlickException {
-        super( x, y, image );
+    public Shell ( double currentAngle, float radius , float x, float y, int timeToDestroy, float speed, Image image ) throws SlickException {
+        super( (float) (x + Math.cos( currentAngle ) * radius),(float) (y - Math.sin( currentAngle ) * radius), image );
         this.timeToDestroy = timeToDestroy;
-        this.speed = speed;
-        this.image = image;
 
         calCos = Math.cos( currentAngle ) * speed;
-        calSin = Math.cos( currentAngle ) * speed;
+        calSin = Math.sin( currentAngle ) * speed;
 
-        image.setRotation( (float) -currentAngle );
+        image.setRotation( (float) Math.toDegrees( -currentAngle ) );
         timer = 0;
     }
 
     public boolean move() {
-        timer++;
         x += calCos;
         y -= calSin;
-        if ( timer > timeToDestroy ) {
-            try {
-                image.destroy();
-            } catch ( SlickException e ) {
-                e.printStackTrace();
-            }
-            return false;
-        }
-        return true;
+        return timer++ < timeToDestroy;
+    }
+
+    public void destroy() throws SlickException {
+        image.destroy();
     }
 
 
-    @Override
-    void draw () {
-        image.draw();
+    void draw ( float sX, float sY ) {
+        image.draw( x - sX - image.getCenterOfRotationX(), y - sY - image.getCenterOfRotationY() );
     }
 }

@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
 public abstract class BasicObject {
     protected float x;
     protected float y;
-    private int radius;
+    private float radius;
 
     protected double currentAngle;
 
@@ -26,13 +26,21 @@ public abstract class BasicObject {
         this.y = y;
         this.currentAngle = currentAngle;
         image = new Image( imagePath );
+        radius = x - ( x / 10 );
     }
 
     public BasicObject ( float x, float y, Image image ) throws SlickException {
         this.x = x;
         this.y = y;
-        this.currentAngle = currentAngle;
         this.image = image;
+    }
+
+    public void changeRadius () {
+        radius = (float) Math.random() * ( image.getCenterOfRotationX() / 2) + image.getCenterOfRotationX() / 2;
+    }
+
+    public float getRadius() {
+        return radius;
     }
 
     public void setMapSize ( int mapHeight, int mapWeight ) {
@@ -45,18 +53,9 @@ public abstract class BasicObject {
                 && y >= image.getCenterOfRotationY() && y < mapHeight - image.getCenterOfRotationY();
     }
 
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
 
     public double getCurrentAngle() {
         return currentAngle;
     }
-
-    abstract void draw ( );
 
 }

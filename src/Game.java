@@ -14,12 +14,8 @@ import java.util.List;
  * Time: 13:30
  * To change this template use File | Settings | File Templates.
  */
-public class Menu extends BasicGameState {
+public class Game extends BasicGameState {
     private int ID;
-    private Image image;
-    private TextField textField;
-    private TextField textFieldTwo;
-    private boolean textOneSelect = true;
 
     private List<Integer> keyPressList = new ArrayList<Integer>( 4 );
     private List<Integer> keyPressedList = new ArrayList<Integer>( 4 );
@@ -28,8 +24,11 @@ public class Menu extends BasicGameState {
     private Ship ship;
     private ShellContainer shellContainer;
     private Image shellImage;
+    private Map map;
 
-    public Menu ( int ID ) {
+    private int timeBetweenShot = 0;
+
+    public Game ( int ID ) {
         this.ID = ID;
     }
 
@@ -40,15 +39,10 @@ public class Menu extends BasicGameState {
 
     @Override
     public void init ( GameContainer gameContainer, StateBasedGame stateBasedGame ) throws SlickException {
-        textField = new TextField(gameContainer, gameContainer.getDefaultFont(),0, 0, 200, 40);
-        textField.setBackgroundColor( Color.gray );
-
-        textFieldTwo = new TextField(gameContainer, gameContainer.getDefaultFont(),0, 60, 200, 40);
-        textFieldTwo.setBackgroundColor( Color.gray );
-        textField.setFocus( true );
-           // float speed, float angleSpeed, String fileName, String mapPath
+        // float speed, float angleSpeed, String fileName, String mapPath
         //gameContainer.setFullscreen( true );
-        ship = new Ship( 5.0f, 3.0f, "ship.png", "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
+        map = new Map( "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
+        ship = new Ship( 5.0f, 3.0f, "ship.png", gameContainer.getHeight(), gameContainer.getWidth(), map );
         shellContainer = new ShellContainer();
         shellImage = new Image( "shell.png" );
     }
@@ -58,8 +52,8 @@ public class Menu extends BasicGameState {
         //image.draw();
         //map.updateMap();
         ship.draw();
-        ship.updateAngle( Mouse.getX(), Mouse.getY(), graphics );
-        shellContainer.updateShells();
+        ship.updateAngle( Mouse.getX(), Mouse.getY() );
+        shellContainer.updateShells( map.getShiftX(), map.getShiftY() );
     }
 
 
@@ -95,8 +89,6 @@ public class Menu extends BasicGameState {
         }
     }
 
-
-
     @Override
     public void update ( GameContainer gameContainer, StateBasedGame stateBasedGame, int i ) throws SlickException {
         Input input = gameContainer.getInput();
@@ -119,9 +111,6 @@ public class Menu extends BasicGameState {
                     }
                 }
             }
-        }
-
-        if ( currentKey.size() > 0 )  {
             if ( currentKey.get( currentKey.size() - 1 ) == Input.KEY_A ) {
                 ship.moveLeft();
             }
@@ -136,8 +125,17 @@ public class Menu extends BasicGameState {
             }
         }
 
-        if ( input.isMouseButtonDown( Input.MOUSE_LEFT_BUTTON ) ) {
-            shellContainer.add( new Shell( ship.getCurrentAngle(), ship.getX(), ship.getY(), 10000, 4.0f, shellImage ) );
+        if ( timeBetweenShot > 0 ) {
+            timeBetweenShot--;
+        }
+        if ( input.isMouseButtonDown( Input.MOUSE_LEFT_BUTTON ) && timeBetweenShot == 0 ) {
+            timeBetweenShot = 6;
+            ship.changeRadius();
+            shellContainer.add( new Shell( ship.getCurrentAngle() + ship.getAccuracy(),
+                    ship.getRadius() ,
+                    ship.getX(), ship.getY(),
+                    30, 14.0f,
+                    shellImage.copy() ) );
         }
 
         editOld( input );

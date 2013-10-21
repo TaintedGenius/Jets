@@ -4,12 +4,11 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Main extends StateBasedGame {
-    private final static int menu = 0;
     private final static int game = 0;
 
     public Main ( String name ) {
         super( name );
-        addState( new Menu(menu) );
+        addState( new Game( game ) );
     }
 
     public static void main(String [] arguments) {
@@ -27,7 +26,7 @@ public class Main extends StateBasedGame {
 
     @Override
     public void initStatesList ( GameContainer gameContainer ) throws SlickException {
-        this.getState( menu ).init( gameContainer, this );
-        this.enterState( menu );
+        this.getState( game ).init( gameContainer, this );
+        this.enterState( game );
     }
 }

@@ -15,7 +15,7 @@ public class Map {
     private int halfScreenWidth;
     private int halfScreenHeight;
 
-    public Map ( String mapPath, int screenWidth, int screenHeight ) throws SlickException {
+    public Map ( String mapPath, int screenHeight, int screenWidth ) throws SlickException {
         image = new Image( mapPath );
         halfScreenHeight = screenHeight / 2;
         halfScreenWidth = screenWidth / 2;

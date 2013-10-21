@@ -19,24 +19,26 @@ public class Ship extends BasicObject {
 
     private int height;
     private int weight;
-
     private Map map;
 
-    public Ship( float speed, float angleSpeed, String fileName, String mapPath, int height, int weight ) throws SlickException {
+    private float accurent;
+
+    public Ship( float speed, float angleSpeed, String fileName, int height, int weight, Map map ) throws SlickException {
         super( 0, weight / 2, height / 2, fileName );
 
+        this.map = map;
         this.angleSpeed =  angleSpeed * ONE_DEGREE;
         this.speed = speed;
         this.weight = weight;
         this.height = height;
                      //String mapPath, int screenWidth, int screenHeight
-        map = new Map( mapPath, weight, height );
         super.setMapSize( map.getMapHeight(), map.getMapWidth() );
 
         finalAngle = 0;
+        accurent = 0.051f;
     }
 
-    public void updateAngle( int mouseX, int mouseY, org.newdawn.slick.Graphics graphics ) {
+    public void updateAngle( int mouseX, int mouseY ) {
         finalAngle =  Math.atan( ( (height - mouseY + map.getShiftY() ) - y ) / ( ( mouseX + map.getShiftX()) - x ) );
         if ( mouseX + map.getShiftX() >= x ) {
             finalAngle = -finalAngle;
@@ -71,11 +73,10 @@ public class Ship extends BasicObject {
         } else if ( deltaAngle < angleSpeed ) {
             currentAngle = finalAngle;
         }
-        graphics.drawString( String.valueOf( currentAngle * 57.29577 ), 0, 45 );
         image.setRotation( (float) Math.toDegrees( -currentAngle ) );
     }
 
-    void moveForward( ) {
+    public void moveForward( ) {
         double calCos = Math.cos( currentAngle ) * speed;
         double calSin = Math.sin( currentAngle ) * speed;
 
@@ -85,7 +86,11 @@ public class Ship extends BasicObject {
         }
     }
 
-    void moveBack( ) {
+    public double getAccuracy () {
+        return  Math.random() * accurent * 2 - accurent;
+    }
+
+    public void moveBack( ) {
         double calCos = Math.cos( currentAngle ) * speed;
         double calSin = Math.sin( currentAngle ) * speed;
 
@@ -95,7 +100,7 @@ public class Ship extends BasicObject {
         }
     }
 
-    void moveLeft( ) {
+    public void moveLeft( ) {
         double calCos = Math.cos( currentAngle - HALF_PI ) * speed;
         double calSin = Math.sin( currentAngle - HALF_PI ) * speed;
 
@@ -105,7 +110,8 @@ public class Ship extends BasicObject {
         }
     }
 
-    void moveRight( ) {
+
+    public void moveRight( ) {
         double calCos = Math.cos( currentAngle + HALF_PI ) * speed;
         double calSin = Math.sin( currentAngle + HALF_PI ) * speed;
 
@@ -135,5 +141,21 @@ public class Ship extends BasicObject {
             dY = y;
         }
         image.draw( dX - image.getCenterOfRotationX(), dY - image.getCenterOfRotationY() );
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getMapShiftX() {
+        return map.getShiftX();
+    }
+
+    public float getMapShiftY() {
+        return map.getShiftY();
+    }
+
+    public float getY() {
+        return y;
     }
 }

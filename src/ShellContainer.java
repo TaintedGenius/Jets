@@ -1,3 +1,4 @@
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,14 +16,13 @@ public class ShellContainer {
         shellList.add( shell );
     }
 
-    public void updateShells() {
-        for ( Shell shell : shellList ) {
-            shell.draw();
-            /*if ( shell.move() ) {
-                shell.draw();
+    public void updateShells( float X, float Y ) {
+        for ( int i = 0; i < shellList.size(); i++ ) {
+            if ( shellList.get( i ).move() ) {
+                shellList.get( i ).draw( X, Y );
             } else {
-                shellList.remove( shell );
-            }*/
+                shellList.remove( shellList.get( i ) );
+            }
         }
     }
 }
