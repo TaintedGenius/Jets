@@ -3,6 +3,7 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import sun.plugin.javascript.navig.ImageArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,14 @@ public class Game extends BasicGameState {
     private List<Integer> keyPressedList = new ArrayList<Integer>( 4 );
     private List<Integer> currentKey = new ArrayList<Integer>( 4 );
 
+
+
+
     private Ship ship;
     private ShellContainer shellContainer;
     private Image shellImage;
     private Map map;
+
 
     private int timeBetweenShot = 0;
 
@@ -44,7 +49,7 @@ public class Game extends BasicGameState {
         map = new Map( "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
         ship = new Ship( 5.0f, 3.0f, "ship.png", gameContainer.getHeight(), gameContainer.getWidth(), map );
         shellContainer = new ShellContainer();
-        shellImage = new Image( "shell.png" );
+        shellImage = new Image("laser.png");
     }
 
     @Override
