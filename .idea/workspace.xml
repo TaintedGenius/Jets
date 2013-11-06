@@ -2,22 +2,48 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f7838602-6715-418a-9d42-ea8b429f295f" name="Default" comment="100%(?) shell done">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Code.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Coordinates.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server.java" />
+      <change type="DELETED" beforePath="F:\Java\Jets\slick\windows\OpenAL32.dll" afterPath="" />
+      <change type="DELETED" beforePath="F:\Java\Jets\slick\windows\OpenAL64.dll" afterPath="" />
+      <change type="DELETED" beforePath="F:\Java\Jets\slick\windows\jinput-dx8.dll" afterPath="" />
+      <change type="DELETED" beforePath="F:\Java\Jets\slick\windows\jinput-dx8_64.dll" afterPath="" />
+      <change type="DELETED" beforePath="F:\Java\Jets\slick\windows\jinput-raw.dll" afterPath="" />
+      <change type="DELETED" beforePath="F:\Java\Jets\slick\windows\jinput-raw_64.dll" afterPath="" />
+      <change type="DELETED" beforePath="F:\Java\Jets\slick\windows\lwjgl.dll" afterPath="" />
+      <change type="DELETED" beforePath="F:\Java\Jets\slick\windows\lwjgl64.dll" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BasicObject.java" afterPath="$PROJECT_DIR$/src/BasicObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Game.java" afterPath="$PROJECT_DIR$/src/Game.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Ship.java" afterPath="$PROJECT_DIR$/src/Ship.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Jets.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Main.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382262088567" ignored="false" />
-    <file path="/fragment.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382124171895" ignored="false" />
-    <file path="/a.dummy" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382259366669" ignored="false" />
-    <file path="/Game.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382360960203" ignored="false" />
+    <file path="/Main.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382629408069" ignored="false" />
+    <file path="/fragment.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1383753231906" ignored="false" />
+    <file path="/a.dummy" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1383665868252" ignored="false" />
+    <file path="/Game.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1383753401658" ignored="false" />
     <file path="/Menu.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382259273597" ignored="false" />
     <file path="/TestMenu.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1381574717008" ignored="false" />
-    <file path="/Dummy.txt" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382361537287" ignored="false" />
-    <file path="/Ship.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382261762117" ignored="false" />
+    <file path="/Dummy.txt" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1383753131212" ignored="false" />
+    <file path="/Ship.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1383666725389" ignored="false" />
     <file path="/Map.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382114538612" ignored="false" />
-    <file path="/BasicObject.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382260637074" ignored="false" />
+    <file path="/BasicObject.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1383666743014" ignored="false" />
     <file path="/Shell.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382360995301" ignored="false" />
     <file path="/ShellContainer.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382183409226" ignored="false" />
+    <file path="$PROJECT_DIR$/../JetsServer/src/Main.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382361609778" ignored="false" />
+    <file path="$PROJECT_DIR$/../JetsServer/src/AcceptClient.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1383753342098" ignored="false" />
+    <file path="/AcceptClient.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382557409911" ignored="false" />
+    <file path="$PROJECT_DIR$/../JetsServer/src/Code.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382387819800" ignored="false" />
+    <file path="/Code.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1383672806553" ignored="false" />
+    <file path="/Server.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1383666202860" ignored="false" />
+    <file path="/Coordinates.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382388150186" ignored="false" />
+    <file path="$PROJECT_DIR$/../Server/.idea/workspace.xml" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382553557683" ignored="false" />
+    <file path="$PROJECT_DIR$/../TestJets/src/Main.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382631234906" ignored="false" />
+    <file path="$PROJECT_DIR$/../TestJets/src/Game.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382631392538" ignored="false" />
+    <file path="$PROJECT_DIR$/../TestJets/src/Server.java" changelist="f7838602-6715-418a-9d42-ea8b429f295f" time="1382631355030" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +58,26 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <method_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="jar://$PROJECT_DIR$/slick/lib/slick.jar!/org/newdawn/slick/opengl/renderer/ImmediateModeOGLRenderer.class" line="76" class="org.newdawn.slick.opengl.renderer.ImmediateModeOGLRenderer" package="org.newdawn.slick.opengl.renderer">
+        <option name="WATCH_ENTRY" value="true" />
+        <option name="WATCH_EXIT" value="true" />
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </method_breakpoints>
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -69,7 +114,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -79,19 +124,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <file leaf-file-name="Ship.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Ship.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="35" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0">
+            <state line="146" column="17" selection-start="4730" selection-end="4730" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Ship.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Ship.java">
+      <file leaf-file-name="Coordinates.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Coordinates.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="92" column="29" selection-start="3140" selection-end="3140" vertical-scroll-proportion="0.0">
+            <state line="9" column="13" selection-start="214" selection-end="214" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Server.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="74" selection-start="1652" selection-end="1652" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -100,11 +154,8 @@
       <file leaf-file-name="Game.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="12" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.52537316">
+            <state line="83" column="116" selection-start="2998" selection-end="2998" vertical-scroll-proportion="0.69299555">
               <folding>
-                <element signature="e#514#523#0" expanded="true" />
-                <element signature="e#586#595#0" expanded="true" />
-                <element signature="e#654#663#0" expanded="true" />
                 <element signature="method#editNew#0;class#Game#0" expanded="false" />
                 <element signature="method#editOld#0;class#Game#0" expanded="false" />
               </folding>
@@ -112,19 +163,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ShellContainer.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ShellContainer.java">
+      <file leaf-file-name="Code.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Code.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Shell.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Shell.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="18" selection-start="877" selection-end="877" vertical-scroll-proportion="0.0">
+            <state line="9" column="44" selection-start="256" selection-end="256" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -133,7 +175,7 @@
       <file leaf-file-name="Map.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Map.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="37" selection-start="696" selection-end="696" vertical-scroll-proportion="0.0">
+            <state line="44" column="82" selection-start="1306" selection-end="1306" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -142,7 +184,16 @@
       <file leaf-file-name="BasicObject.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BasicObject.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="5" selection-start="911" selection-end="911" vertical-scroll-proportion="0.0">
+            <state line="27" column="27" selection-start="697" selection-end="697" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="19" column="49" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -171,10 +222,13 @@
         <option value="$PROJECT_DIR$/src/ShellContainer.java" />
         <option value="$PROJECT_DIR$/src/Menu.java" />
         <option value="$PROJECT_DIR$/src/Map.java" />
-        <option value="$PROJECT_DIR$/src/BasicObject.java" />
-        <option value="$PROJECT_DIR$/src/Main.java" />
-        <option value="$PROJECT_DIR$/src/Ship.java" />
         <option value="$PROJECT_DIR$/src/Shell.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/BasicObject.java" />
+        <option value="$PROJECT_DIR$/src/Ship.java" />
+        <option value="$PROJECT_DIR$/src/Coordinates.java" />
+        <option value="$PROJECT_DIR$/src/Code.java" />
+        <option value="$PROJECT_DIR$/src/Server.java" />
         <option value="$PROJECT_DIR$/src/Game.java" />
       </list>
     </option>
@@ -211,7 +265,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -246,6 +299,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -258,17 +312,17 @@
     <property name="options.lastSelected" value="preferences.intentionPowerPack" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Jets'n'Fun" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -279,7 +333,7 @@
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="Main" />
-      <option name="VM_PARAMETERS" value="-Djava.library.path=slick/windows" />
+      <option name="VM_PARAMETERS" value="-Djava.library.path=slick/lib/natives-windows" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -447,7 +501,11 @@
       <created>1382361487132</created>
       <updated>1382361487132</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="100%(?) shell done">
+      <created>1382361544860</created>
+      <updated>1382361544860</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -487,8 +545,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2497332" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16542156" sideWeight="0.7750557" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22494432" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16542156" sideWeight="0.77616924" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22383073" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850778" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -575,102 +633,101 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/BasicObject.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_40/src.zip!/java/io/FilterInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="85" selection-start="911" selection-end="911" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="45" column="38" selection-start="885" selection-end="885" vertical-scroll-proportion="0.36687306" />
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/slick/lib/slick.jar!/org/newdawn/slick/util/FileSystemLocation.class">
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_40/src.zip!/java/io/DataInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="31" selection-start="457" selection-end="457" vertical-scroll-proportion="0.40930232" />
+        <state line="42" column="35" selection-start="788" selection-end="788" vertical-scroll-proportion="0.13622291" />
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/slick/lib/slick.jar!/org/newdawn/slick/util/ClasspathLocation.class">
+    <entry file="jar://C:/Program Files/Java/jdk1.7.0_40/src.zip!/java/io/DataOutputStream.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="31" selection-start="406" selection-end="406" vertical-scroll-proportion="0.34108528" />
+        <state line="37" column="6" selection-start="532" selection-end="532" vertical-scroll-proportion="-0.15946348" />
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/slick/lib/slick.jar!/org/newdawn/slick/state/StateBasedGame.class">
+    <entry file="jar://$PROJECT_DIR$/slick/lib/lwjgl.jar!/org/lwjgl/opengl/GLContext.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="19" selection-start="2571" selection-end="2571" vertical-scroll-proportion="0.3464696" />
+        <state line="22" column="56" selection-start="1102" selection-end="1102" vertical-scroll-proportion="-8.44" />
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/slick/lib/lwjgl.jar!/org/lwjgl/opengl/GL11.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1658" column="23" selection-start="78175" selection-end="78175" vertical-scroll-proportion="0.33333334" />
       </provider>
     </entry>
     <entry file="jar://$PROJECT_DIR$/slick/lib/slick.jar!/org/newdawn/slick/Image.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="53" selection-start="895" selection-end="895" vertical-scroll-proportion="0.7947455" />
+        <state line="138" column="16" selection-start="5825" selection-end="5825" vertical-scroll-proportion="0.3464696" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shell.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Jets/.gitignore">
+    <entry file="jar://$PROJECT_DIR$/slick/lib/slick.jar!/org/newdawn/slick/Color.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+        <state line="44" column="16" selection-start="1775" selection-end="1775" vertical-scroll-proportion="0.34565917" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Jets/README.md">
+    <entry file="jar://$PROJECT_DIR$/slick/lib/slick.jar!/org/newdawn/slick/opengl/renderer/ImmediateModeOGLRenderer.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/slick/src/org/newdawn/slick/tests/GUITest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="36" selection-start="1000" selection-end="1000" vertical-scroll-proportion="0.8650519" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BasicObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="5" selection-start="911" selection-end="911" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ShellContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="35" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Ship.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="29" selection-start="3140" selection-end="3140" vertical-scroll-proportion="0.0">
+        <state line="70" column="16" selection-start="2646" selection-end="2646" vertical-scroll-proportion="0.3464696">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Map.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="37" selection-start="696" selection-end="696" vertical-scroll-proportion="0.0">
+        <state line="44" column="82" selection-start="1306" selection-end="1306" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Shell.java">
+    <entry file="file://$PROJECT_DIR$/src/BasicObject.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="18" selection-start="877" selection-end="877" vertical-scroll-proportion="0.0">
+        <state line="27" column="27" selection-start="697" selection-end="697" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Code.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="44" selection-start="256" selection-end="256" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="49" selection-start="664" selection-end="664" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Ship.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="146" column="17" selection-start="4730" selection-end="4730" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Coordinates.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="13" selection-start="214" selection-end="214" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="74" selection-start="1652" selection-end="1652" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="12" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.52537316">
+        <state line="83" column="116" selection-start="2998" selection-end="2998" vertical-scroll-proportion="0.69299555">
           <folding>
-            <element signature="e#514#523#0" expanded="true" />
-            <element signature="e#586#595#0" expanded="true" />
-            <element signature="e#654#663#0" expanded="true" />
             <element signature="method#editNew#0;class#Game#0" expanded="false" />
             <element signature="method#editOld#0;class#Game#0" expanded="false" />
           </folding>

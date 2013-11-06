@@ -14,7 +14,7 @@ public class Main extends StateBasedGame {
     public static void main(String [] arguments) {
         try {
             AppGameContainer app = new AppGameContainer( new Main( "Jets" ) );
-            app.setDisplayMode( 1024, 768, false );
+            app.setDisplayMode( 1024, 700, false );
             app.setTargetFrameRate( 60 );
             app.setVSync( true );
             app.setShowFPS( true );
@@ -26,7 +26,7 @@ public class Main extends StateBasedGame {
 
     @Override
     public void initStatesList ( GameContainer gameContainer ) throws SlickException {
-        this.getState( game ).init( gameContainer, this );
+        //this.getState( game ).init( gameContainer, this );
         this.enterState( game );
     }
 }

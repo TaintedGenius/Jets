@@ -23,8 +23,8 @@ public class Ship extends BasicObject {
 
     private float accurent;
 
-    public Ship( float speed, float angleSpeed, String fileName, int height, int weight, Map map ) throws SlickException {
-        super( 0, weight / 2, height / 2, fileName );
+    public Ship( float speed, float angleSpeed, Image image, int height, int weight, Map map ) throws SlickException {
+        super( 0, weight / 2, height / 2, image );
 
         this.map = map;
         this.angleSpeed =  angleSpeed * ONE_DEGREE;
@@ -38,11 +38,12 @@ public class Ship extends BasicObject {
         accurent = 0.051f;
     }
 
+
     public void updateAngle( int mouseX, int mouseY ) {
-        finalAngle =  Math.atan( ( (height - mouseY + map.getShiftY() ) - y ) / ( ( mouseX + map.getShiftX()) - x ) );
+        finalAngle =  Math.atan( ( ( height - mouseY + map.getShiftY() ) - y ) / ( ( mouseX + map.getShiftX()) - x ) );
         if ( mouseX + map.getShiftX() >= x ) {
             finalAngle = -finalAngle;
-            if ( (height - mouseY + map.getShiftY() ) >= y ) {
+            if ( ( height - mouseY + map.getShiftY() ) >= y ) {
                 finalAngle = Math.PI * 2 + finalAngle;
             }
         } else {
@@ -60,20 +61,19 @@ public class Ship extends BasicObject {
             } else {
                 if ( currentAngle < finalAngle ) {
                     if ( currentAngle >= 0 && currentAngle < angleSpeed ) {
-                        currentAngle = CIRCLE_DEGREE + currentAngle;
+                        currentAngle = (float) CIRCLE_DEGREE + currentAngle;
                     }
                     currentAngle -= angleSpeed;
                 } else if ( currentAngle > finalAngle ) {
                     if ( currentAngle >= CIRCLE_DEGREE - angleSpeed ) {
-                        currentAngle = -angleSpeed + ( CIRCLE_DEGREE - currentAngle );
+                        currentAngle = (float) ( -angleSpeed + ( CIRCLE_DEGREE - currentAngle ) );
                     }
                     currentAngle += angleSpeed;
                 }
             }
         } else if ( deltaAngle < angleSpeed ) {
-            currentAngle = finalAngle;
+            currentAngle = (float) finalAngle;
         }
-        image.setRotation( (float) Math.toDegrees( -currentAngle ) );
     }
 
     public void moveForward( ) {
@@ -124,38 +124,31 @@ public class Ship extends BasicObject {
     public void draw( ) {
         map.draw( x, y );
         float dX, dY;
-        if ( map.getShiftX() > 0 ) {
-            dX = weight / 2;
-            if ( map.getShiftX() == map.getMapWidth() - weight ) {
-                dX = x - ( map.getMapWidth() - weight );
+            if ( map.getShiftX() > 0 ) {
+                dX = weight / 2;
+                if ( map.getShiftX() == map.getMapWidth() - weight ) {
+                    dX = x - ( map.getMapWidth() - weight );
+                }
+            } else {
+                dX = x;
             }
-        } else {
-            dX = x;
-        }
-        if ( map.getShiftY() > 0 ) {
-            dY = height / 2;
-            if ( map.getShiftY() == map.getMapHeight() - height ) {
-                dY = y - ( map.getMapHeight() - height );
+            if ( map.getShiftY() > 0 ) {
+                dY = height / 2;
+                if ( map.getShiftY() == map.getMapHeight() - height ) {
+                    dY = y - ( map.getMapHeight() - height );
+                }
+            } else {
+                dY = y;
             }
-        } else {
-            dY = y;
-        }
+        image.setRotation( (float) Math.toDegrees( -currentAngle ) );
         image.draw( dX - image.getCenterOfRotationX(), dY - image.getCenterOfRotationY() );
     }
 
-    public float getX() {
-        return x;
+    public float getShiftX() {
+        return x - weight / 2;
     }
 
-    public float getMapShiftX() {
-        return map.getShiftX();
-    }
-
-    public float getMapShiftY() {
-        return map.getShiftY();
-    }
-
-    public float getY() {
-        return y;
+    public float getShiftY() {
+        return y - height / 2;
     }
 }

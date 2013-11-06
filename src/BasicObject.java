@@ -14,18 +14,18 @@ public abstract class BasicObject {
     protected float y;
     private float radius;
 
-    protected double currentAngle;
+    protected float currentAngle;
 
     private int mapHeight;
     private int mapWeight;
     protected Image image;
 
 
-    public BasicObject ( double currentAngle, float x, float y, String imagePath ) throws SlickException {
+    public BasicObject ( float currentAngle, float x, float y, Image image ) throws SlickException {
         this.x = x;
         this.y = y;
         this.currentAngle = currentAngle;
-        image = new Image( imagePath );
+        this.image = image;
         radius = x - ( x / 10 );
     }
 
@@ -53,9 +53,15 @@ public abstract class BasicObject {
                 && y >= image.getCenterOfRotationY() && y < mapHeight - image.getCenterOfRotationY();
     }
 
-
-    public double getCurrentAngle() {
-        return currentAngle;
+    public float getX() {
+        return x;
     }
 
+    public float getY() {
+        return y;
+    }
+
+    public float getCurrentAngle() {
+        return currentAngle;
+    }
 }

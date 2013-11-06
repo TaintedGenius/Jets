@@ -1,6 +1,5 @@
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.*;
-import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,10 +25,18 @@ public class Game extends BasicGameState {
     private Image shellImage;
     private Map map;
 
-    private int timeBetweenShot = 0;
+    private Image shipImage;
+    private int number;
+
+    private Server server;
+
+    private int timeBetweenShoot = 0;
 
     public Game ( int ID ) {
         this.ID = ID;
+
+        server = new Server();
+        shellContainer = new ShellContainer();
     }
 
     @Override
@@ -39,21 +46,68 @@ public class Game extends BasicGameState {
 
     @Override
     public void init ( GameContainer gameContainer, StateBasedGame stateBasedGame ) throws SlickException {
-        // float speed, float angleSpeed, String fileName, String mapPath
-        //gameContainer.setFullscreen( true );
+        shipImage = new Image( "ship.png" );
         map = new Map( "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
-        ship = new Ship( 5.0f, 3.0f, "ship.png", gameContainer.getHeight(), gameContainer.getWidth(), map );
-        shellContainer = new ShellContainer();
+        ship = new Ship( 5.0f, 3.0f, shipImage, gameContainer.getHeight(), gameContainer.getWidth(), map );
         shellImage = new Image( "shell.png" );
+    }
+
+    private ArrayList<Coordinates> getShipsPosition( String line ) {
+        if ( line == null ) {
+            return null;
+        }
+        String[] splitLine = line.split( ";" );
+        ArrayList<Coordinates> coordinatesArrayList = new ArrayList<Coordinates> ();
+        for ( int i = 0; i < splitLine.length; ) {
+            int num = Integer.parseInt( splitLine[i++] );
+            /*if ( num == number ) {
+                i += 3;
+                continue;
+            }*/
+            Coordinates coordinates = new Coordinates();
+            coordinates.number = num;
+            coordinates.x = Float.parseFloat( splitLine[i++] );
+            coordinates.y = Float.parseFloat( splitLine[i++] );
+            coordinates.angle = Float.parseFloat(splitLine[i++]);
+           coordinatesArrayList.add( coordinates );
+        }
+        return  coordinatesArrayList;
+    }
+
+    private void drawShips( ArrayList<Coordinates> coordinatesArrayList ) {
+        if ( coordinatesArrayList == null || coordinatesArrayList.size() == 0 ) return;
+        for ( Coordinates coordinates : coordinatesArrayList ) {
+            Image tempImg = shipImage.copy();
+            tempImg.setRotation( (float) Math.toDegrees( -coordinates.angle ) );
+            tempImg.draw( coordinates.x - ship.getShiftX() - tempImg.getCenterOfRotationX(),
+                          coordinates.y - ship.getShiftY() - tempImg.getCenterOfRotationY() );
+        }
+    }
+
+    private boolean isCode( String line ) {
+        if ( line == null ) return true;
+        String[] splitLine = line.split( ";" );
+        if ( splitLine[0].equals( Code.SET_ID ) ) {
+            System.out.println( line );
+            number = Integer.parseInt( String.valueOf( splitLine[1] ) );
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void render ( GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics ) throws SlickException {
         //image.draw();
         //map.updateMap();
+
+        String line = server.relieveData();
         ship.draw();
-        ship.updateAngle( Mouse.getX(), Mouse.getY() );
+        graphics.drawString( line == null ? "null" : line, 0, 50 );
+        if ( !isCode( line ) ) {
+            drawShips( getShipsPosition( line ) );
+        }
         shellContainer.updateShells( map.getShiftX(), map.getShiftY() );
+
     }
 
 
@@ -92,7 +146,6 @@ public class Game extends BasicGameState {
     @Override
     public void update ( GameContainer gameContainer, StateBasedGame stateBasedGame, int i ) throws SlickException {
         Input input = gameContainer.getInput();
-
         editNew( input );
 
         if ( keyPressList.isEmpty() ) {
@@ -125,18 +178,21 @@ public class Game extends BasicGameState {
             }
         }
 
-        if ( timeBetweenShot > 0 ) {
-            timeBetweenShot--;
+        if ( timeBetweenShoot > 0 ) {
+            timeBetweenShoot--;
         }
-        if ( input.isMouseButtonDown( Input.MOUSE_LEFT_BUTTON ) && timeBetweenShot == 0 ) {
-            timeBetweenShot = 6;
+        if ( input.isMouseButtonDown( Input.MOUSE_LEFT_BUTTON ) && timeBetweenShoot == 0 ) {
+            timeBetweenShoot = 6;
             ship.changeRadius();
-            shellContainer.add( new Shell( ship.getCurrentAngle() + ship.getAccuracy(),
-                    ship.getRadius() ,
+            shellContainer.add( new Shell(
+                    ship.getCurrentAngle() + ship.getAccuracy(),
+                    ship.getRadius(),
                     ship.getX(), ship.getY(),
                     30, 14.0f,
                     shellImage.copy() ) );
         }
+        ship.updateAngle( Mouse.getX(), Mouse.getY() );
+        server.sendData( number, ship.getX(), ship.getY(), ship.getCurrentAngle() );
 
         editOld( input );
     }
