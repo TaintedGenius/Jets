@@ -79,8 +79,19 @@ public class Game extends BasicGameState {
         for ( Coordinates coordinates : coordinatesArrayList ) {
             Image tempImg = shipImage.copy();
             tempImg.setRotation( (float) Math.toDegrees( -coordinates.angle ) );
-            tempImg.draw( coordinates.x - ship.getShiftX() - tempImg.getCenterOfRotationX(),
-                          coordinates.y - ship.getShiftY() - tempImg.getCenterOfRotationY() );
+            float dX, dY;
+            if ( coordinates.x < ship.getWeight() / 2 || coordinates.x >= map.getMapWidth() - ship.getWeight() ) {
+                dX = coordinates.x - tempImg.getCenterOfRotationX();
+            } else {
+                dX = coordinates.x - ship.getShiftX() - tempImg.getCenterOfRotationX();
+            }
+            if ( coordinates.y < ship.getHeight() / 2 || coordinates.y >= map.getMapHeight() - ship.getHeight() ) {
+                dY = coordinates.y - tempImg.getCenterOfRotationY();
+            } else {
+                dY = coordinates.y - ship.getShiftY() - tempImg.getCenterOfRotationY();
+            }
+
+            tempImg.draw( dX, dY );
         }
     }
 
@@ -88,7 +99,6 @@ public class Game extends BasicGameState {
         if ( line == null ) return true;
         String[] splitLine = line.split( ";" );
         if ( splitLine[0].equals( Code.SET_ID ) ) {
-            System.out.println( line );
             number = Integer.parseInt( String.valueOf( splitLine[1] ) );
             return true;
         }

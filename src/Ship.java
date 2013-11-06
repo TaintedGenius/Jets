@@ -151,4 +151,12 @@ public class Ship extends BasicObject {
     public float getShiftY() {
         return y - height / 2;
     }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
 }
