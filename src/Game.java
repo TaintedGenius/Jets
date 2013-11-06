@@ -60,10 +60,10 @@ public class Game extends BasicGameState {
         ArrayList<Coordinates> coordinatesArrayList = new ArrayList<Coordinates> ();
         for ( int i = 0; i < splitLine.length; ) {
             int num = Integer.parseInt( splitLine[i++] );
-            /*if ( num == number ) {
+            if ( num == number ) {
                 i += 3;
                 continue;
-            }*/
+            }
             Coordinates coordinates = new Coordinates();
             coordinates.number = num;
             coordinates.x = Float.parseFloat( splitLine[i++] );
