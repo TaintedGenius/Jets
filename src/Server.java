@@ -22,8 +22,9 @@ public class Server {
     public Server() {
         try {
 
-            socket = new Socket("127.0.0.1", Code.PORT);
+            socket = new Socket( "94.178.41.38", Code.PORT );
             socket.setSoTimeout( 19 );
+            socket.setTcpNoDelay( true );
             streamIn = new DataInputStream( new BufferedInputStream( socket.getInputStream() ) );
             streamOut = new DataOutputStream( socket.getOutputStream() );
         } catch ( UnknownHostException uhe ) {

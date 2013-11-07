@@ -17,11 +17,13 @@ public class Ship extends BasicObject {
 
     private double finalAngle;
 
-    private int height;
-    private int weight;
+    private int height;     //высода и ширина должны быть кратными 2
+    private int width;
+    private int halfHeight;
+    private int halfWidth;
     private Map map;
 
-    private float accurent;
+    private float accuracy;
 
     public Ship( float speed, float angleSpeed, Image image, int height, int weight, Map map ) throws SlickException {
         super( 0, weight / 2, height / 2, image );
@@ -29,13 +31,15 @@ public class Ship extends BasicObject {
         this.map = map;
         this.angleSpeed =  angleSpeed * ONE_DEGREE;
         this.speed = speed;
-        this.weight = weight;
+        this.width = weight;
         this.height = height;
+        halfHeight = height / 2;
+        halfWidth = weight / 2;
                      //String mapPath, int screenWidth, int screenHeight
         super.setMapSize( map.getMapHeight(), map.getMapWidth() );
 
         finalAngle = 0;
-        accurent = 0.051f;
+        accuracy = 0.051f;
     }
 
 
@@ -44,7 +48,7 @@ public class Ship extends BasicObject {
         if ( mouseX + map.getShiftX() >= x ) {
             finalAngle = -finalAngle;
             if ( ( height - mouseY + map.getShiftY() ) >= y ) {
-                finalAngle = Math.PI * 2 + finalAngle;
+                finalAngle = CIRCLE_DEGREE + finalAngle;
             }
         } else {
             finalAngle = Math.PI - finalAngle;
@@ -87,7 +91,7 @@ public class Ship extends BasicObject {
     }
 
     public double getAccuracy () {
-        return  Math.random() * accurent * 2 - accurent;
+        return  Math.random() * accuracy * 2 - accuracy;
     }
 
     public void moveBack( ) {
@@ -121,19 +125,19 @@ public class Ship extends BasicObject {
         }
     }
 
-    public void draw( ) {
+    public void draw() {
         map.draw( x, y );
         float dX, dY;
             if ( map.getShiftX() > 0 ) {
-                dX = weight / 2;
-                if ( map.getShiftX() == map.getMapWidth() - weight ) {
-                    dX = x - ( map.getMapWidth() - weight );
+                dX = halfWidth;
+                if ( map.getShiftX() == map.getMapWidth() - width) {
+                    dX = x - ( map.getMapWidth() - width);
                 }
             } else {
                 dX = x;
             }
             if ( map.getShiftY() > 0 ) {
-                dY = height / 2;
+                dY = halfHeight;
                 if ( map.getShiftY() == map.getMapHeight() - height ) {
                     dY = y - ( map.getMapHeight() - height );
                 }
@@ -145,18 +149,26 @@ public class Ship extends BasicObject {
     }
 
     public float getShiftX() {
-        return x - weight / 2;
+        return x - halfWidth;
     }
 
     public float getShiftY() {
-        return y - height / 2;
+        return y - halfHeight;
+    }
+
+    public int getHalfHeight() {
+        return halfHeight;
+    }
+
+    public int getHalfWidth() {
+        return halfWidth;
     }
 
     public int getHeight() {
         return height;
     }
 
-    public int getWeight() {
-        return weight;
+    public int getWidth() {
+        return width;
     }
 }
