@@ -69,7 +69,7 @@ public class Game extends BasicGameState {
             coordinates.x = Float.parseFloat( splitLine[i++] );
             coordinates.y = Float.parseFloat( splitLine[i++] );
             coordinates.angle = Float.parseFloat(splitLine[i++]);
-           coordinatesArrayList.add( coordinates );
+            coordinatesArrayList.add( coordinates );
         }
         return  coordinatesArrayList;
     }
@@ -80,17 +80,20 @@ public class Game extends BasicGameState {
             Image tempImg = shipImage.copy();
             tempImg.setRotation( (float) Math.toDegrees( -coordinates.angle ) );
             float dX, dY;
-            if ( coordinates.x < ship.getWeight() / 2 || coordinates.x >= map.getMapWidth() - ship.getWeight() ) {
+            if ( ship.getX() < ship.getHalfWidth() ) {
                 dX = coordinates.x - tempImg.getCenterOfRotationX();
+            } else if ( ship.getX() >= map.getMapWidth() - ship.getHalfWidth() ) {
+                dX = coordinates.x - map.getMapWidth() + ship.getWidth() - tempImg.getCenterOfRotationX();
             } else {
                 dX = coordinates.x - ship.getShiftX() - tempImg.getCenterOfRotationX();
             }
-            if ( coordinates.y < ship.getHeight() / 2 || coordinates.y >= map.getMapHeight() - ship.getHeight() ) {
+            if ( ship.getY() < ship.getHalfHeight() ) {
                 dY = coordinates.y - tempImg.getCenterOfRotationY();
+            } else if ( ship.getY() >= map.getMapHeight() - ship.getHalfHeight() ) {
+                dY = coordinates.y + ship.getHeight() - map.getMapHeight() - tempImg.getCenterOfRotationY();
             } else {
                 dY = coordinates.y - ship.getShiftY() - tempImg.getCenterOfRotationY();
             }
-
             tempImg.draw( dX, dY );
         }
     }
@@ -117,7 +120,6 @@ public class Game extends BasicGameState {
             drawShips( getShipsPosition( line ) );
         }
         shellContainer.updateShells( map.getShiftX(), map.getShiftY() );
-
     }
 
 

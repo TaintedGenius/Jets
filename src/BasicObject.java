@@ -43,6 +43,10 @@ public abstract class BasicObject {
         return radius;
     }
 
+    public void drawImage( float x, float y ) {
+        image.draw( x, y );
+    }
+
     public void setMapSize ( int mapHeight, int mapWeight ) {
         this.mapHeight = mapHeight;
         this.mapWeight = mapWeight;
