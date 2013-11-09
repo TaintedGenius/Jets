@@ -1,5 +1,3 @@
-import org.newdawn.slick.geom.Point;
-
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -21,9 +19,7 @@ public class Server {
 
     public Server() {
         try {
-
-            socket = new Socket( "94.178.41.38", Code.PORT );
-            socket.setSoTimeout( 19 );
+            socket = new Socket( "92.112.249.85", Code.PORT );
             socket.setTcpNoDelay( true );
             streamIn = new DataInputStream( new BufferedInputStream( socket.getInputStream() ) );
             streamOut = new DataOutputStream( socket.getOutputStream() );
@@ -36,10 +32,10 @@ public class Server {
         }*/
     }
 
-    public void sendData( int number, float x, float y, float currentAngle ) {
+    public void sendData( String code ,float x, float y, float currentAngle ) {
         StringBuilder sb = new StringBuilder(  );
         try {
-            sb.append( String.valueOf( number ) ).append( ";" ).
+            sb.append( code ).append( ";" ).
                append( String.valueOf( x ) ).append( ";" ).
                append( String.valueOf( y ) ).append( ";" ).
                append( String.valueOf( currentAngle ) ).append( ";" );
@@ -50,27 +46,11 @@ public class Server {
         }
     }
 
-    public void sendData( int number, float x, float y, float currentAngle, long currentTime ) {
-        StringBuilder sb = new StringBuilder(  );
-        try {
-            sb.append( String.valueOf( number ) ).append( ";" ).
-                    append( String.valueOf( x ) ).append( ";" ).
-                    append( String.valueOf( y ) ).append( ";" ).
-                    append( String.valueOf( currentAngle ) ).append( ";" ).
-                    append( String.valueOf( currentTime ) ).append( ";");
-            streamOut.writeUTF( sb.toString() );
-            streamOut.flush();
-        } catch ( IOException ioEx ) {
-            System.err.println( "Can't send new coordinates of ship" );
-        }
-    }
-
-    public String relieveData() {
+    public String relieveData() throws IOException {
         try {
             return streamIn.readUTF();
         } catch ( IOException ioEx ) {
-            System.err.println( "line = null" );
-            return null;
+            throw new IOException();
         }
     }
 }

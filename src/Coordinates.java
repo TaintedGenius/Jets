@@ -17,5 +17,10 @@ public class Coordinates {
         this.y = y;
         this.angle = currentAngle;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf( number ) + " " + String.valueOf( x ) + " " + String.valueOf( y ) + " " + String.valueOf( angle );
+    }
     public Coordinates (  ) {}
 }

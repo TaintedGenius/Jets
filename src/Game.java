@@ -3,8 +3,8 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,6 +31,8 @@ public class Game extends BasicGameState {
     private Server server;
 
     private int timeBetweenShoot = 0;
+    private List<String> stringList = Collections.synchronizedList( new ArrayList<String>(  ) );
+    private List<Coordinates> coordinatesList = new ArrayList<Coordinates>(  );
 
     public Game ( int ID ) {
         this.ID = ID;
@@ -50,34 +52,45 @@ public class Game extends BasicGameState {
         map = new Map( "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
         ship = new Ship( 5.0f, 3.0f, shipImage, gameContainer.getHeight(), gameContainer.getWidth(), map );
         shellImage = new Image( "shell.png" );
+        new Thread( new ReceiveData() ).start();
     }
 
-    private ArrayList<Coordinates> getShipsPosition( String line ) {
-        if ( line == null ) {
-            return null;
-        }
-        String[] splitLine = line.split( ";" );
-        ArrayList<Coordinates> coordinatesArrayList = new ArrayList<Coordinates> ();
-        for ( int i = 0; i < splitLine.length; ) {
-            int num = Integer.parseInt( splitLine[i++] );
-            if ( num == number ) {
-                i += 3;
-                continue;
+    private int isFind( int numb ) {
+        for ( int i = 0; i < coordinatesList.size(); i++ ) {
+            if ( coordinatesList.get( i ).number == numb ) {
+                return i;
             }
-            Coordinates coordinates = new Coordinates();
-            coordinates.number = num;
-            coordinates.x = Float.parseFloat( splitLine[i++] );
-            coordinates.y = Float.parseFloat( splitLine[i++] );
-            coordinates.angle = Float.parseFloat(splitLine[i++]);
-            coordinatesArrayList.add( coordinates );
         }
-        return  coordinatesArrayList;
+        return -1;
     }
 
-    private void drawShips( ArrayList<Coordinates> coordinatesArrayList ) {
-        if ( coordinatesArrayList == null || coordinatesArrayList.size() == 0 ) return;
-        for ( Coordinates coordinates : coordinatesArrayList ) {
-            Image tempImg = shipImage.copy();
+    private void getShipsPosition() {
+        for ( int i = 0; i < stringList.size(); i++ ) {
+            String[] splitLine = stringList.get( i ).split( ";" );
+            if ( splitLine[0].equals( Code.SEND_COORDINATES ) ) {
+                int num = Integer.parseInt( splitLine[1] );
+                if ( num == number ) {
+                    continue;
+                }
+                Coordinates coordinates = new Coordinates();
+                coordinates.number = num;
+                coordinates.x = Float.parseFloat( splitLine[2] );
+                coordinates.y = Float.parseFloat( splitLine[3] );
+                coordinates.angle = Float.parseFloat(splitLine[4]);
+                int index = isFind( num );
+                if ( index >= 0 ) {
+                    coordinatesList.remove( coordinatesList.get( index ) );
+                    coordinatesList.add( coordinates );
+                } else {
+                    coordinatesList.add( coordinates );
+                }
+            }
+        }
+    }
+
+    private void drawShips() {
+        Image tempImg = shipImage.copy();
+        for ( Coordinates coordinates : coordinatesList ) {
             tempImg.setRotation( (float) Math.toDegrees( -coordinates.angle ) );
             float dX, dY;
             if ( ship.getX() < ship.getHalfWidth() ) {
@@ -99,7 +112,6 @@ public class Game extends BasicGameState {
     }
 
     private boolean isCode( String line ) {
-        if ( line == null ) return true;
         String[] splitLine = line.split( ";" );
         if ( splitLine[0].equals( Code.SET_ID ) ) {
             number = Integer.parseInt( String.valueOf( splitLine[1] ) );
@@ -110,18 +122,13 @@ public class Game extends BasicGameState {
 
     @Override
     public void render ( GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics ) throws SlickException {
-        //image.draw();
-        //map.updateMap();
-
-        String line = server.relieveData();
         ship.draw();
-        graphics.drawString( line == null ? "null" : line, 0, 50 );
-        if ( !isCode( line ) ) {
-            drawShips( getShipsPosition( line ) );
-        }
+        graphics.drawString( coordinatesList.toString(), 0, 50 );
+        getShipsPosition();
+        drawShips();
+        stringList.clear();
         shellContainer.updateShells( map.getShiftX(), map.getShiftY() );
     }
-
 
     public void editNew( Input input ) {
         keyPressList.removeAll( keyPressList );
@@ -188,6 +195,7 @@ public class Game extends BasicGameState {
             if ( currentKey.get( currentKey.size() - 1 ) == Input.KEY_D ) {
                 ship.moveRight();
             }
+            server.sendData( Code.SEND_COORDINATES ,ship.getX(), ship.getY(), ship.getCurrentAngle() );
         }
 
         if ( timeBetweenShoot > 0 ) {
@@ -204,8 +212,23 @@ public class Game extends BasicGameState {
                     shellImage.copy() ) );
         }
         ship.updateAngle( Mouse.getX(), Mouse.getY() );
-        server.sendData( number, ship.getX(), ship.getY(), ship.getCurrentAngle() );
 
         editOld( input );
+    }
+
+    class ReceiveData extends Thread {
+        @Override
+        public void run() {
+            while ( true ) {
+                try {
+                    String line = server.relieveData();
+                    if ( !isCode( line ) ) {
+                        stringList.add( line );
+                    }
+                } catch ( IOException ioEx ) {
+                    System.err.println( "Dannie ne prinyati" );
+                }
+            }
+        }
     }
 }
