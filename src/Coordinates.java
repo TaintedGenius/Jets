@@ -10,12 +10,27 @@ public class Coordinates {
     public float x;
     public float y;
     public float angle;
-    public long time;
 
-    public Coordinates ( float x, float y, float currentAngle ) {
+    public Coordinates( int number, float x, float y, float angle ) {
+        this.number = number;
         this.x = x;
         this.y = y;
-        this.angle = currentAngle;
+        this.angle = angle;
+    }
+
+    @Override
+    public boolean equals( Object o ) {
+        return number == ( (Coordinates) o ).number;
+    }
+
+    @Override
+    public int hashCode() {
+        return number;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf( number ) + " " + String.valueOf( x ) + " " + String.valueOf( y ) + " " + String.valueOf( angle );
     }
     public Coordinates (  ) {}
 }

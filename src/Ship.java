@@ -13,7 +13,6 @@ public class Ship extends BasicObject {
     private final double HALF_PI = Math.PI / 2;
 
     private double angleSpeed;
-    private double speed;
 
     private double finalAngle;
 
@@ -26,11 +25,10 @@ public class Ship extends BasicObject {
     private float accuracy;
 
     public Ship( float speed, float angleSpeed, Image image, int height, int weight, Map map ) throws SlickException {
-        super( 0, weight / 2, height / 2, image );
+        super( speed, 0, weight / 2, height / 2, image );
 
         this.map = map;
         this.angleSpeed =  angleSpeed * ONE_DEGREE;
-        this.speed = speed;
         this.width = weight;
         this.height = height;
         halfHeight = height / 2;
@@ -43,7 +41,7 @@ public class Ship extends BasicObject {
     }
 
 
-    public void updateAngle( int mouseX, int mouseY ) {
+    public boolean updateAngle( int mouseX, int mouseY ) {
         finalAngle =  Math.atan( ( ( height - mouseY + map.getShiftY() ) - y ) / ( ( mouseX + map.getShiftX()) - x ) );
         if ( mouseX + map.getShiftX() >= x ) {
             finalAngle = -finalAngle;
@@ -78,6 +76,7 @@ public class Ship extends BasicObject {
         } else if ( deltaAngle < angleSpeed ) {
             currentAngle = (float) finalAngle;
         }
+        return currentAngle == finalAngle;
     }
 
     public void moveForward( ) {
@@ -90,8 +89,8 @@ public class Ship extends BasicObject {
         }
     }
 
-    public double getAccuracy () {
-        return  Math.random() * accuracy * 2 - accuracy;
+    public float getAccuracy () {
+        return (float) Math.random() * accuracy * 2 - accuracy;
     }
 
     public void moveBack( ) {

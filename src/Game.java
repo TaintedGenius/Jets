@@ -3,8 +3,8 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,6 +31,8 @@ public class Game extends BasicGameState {
     private Server server;
 
     private int timeBetweenShoot = 0;
+    private List<String> stringList = Collections.synchronizedList( new ArrayList<String>(  ) );
+    private Set<Coordinates> coordinatesSet = new LinkedHashSet<Coordinates>(  );
 
     public Game ( int ID ) {
         this.ID = ID;
@@ -50,34 +52,39 @@ public class Game extends BasicGameState {
         map = new Map( "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
         ship = new Ship( 5.0f, 3.0f, shipImage, gameContainer.getHeight(), gameContainer.getWidth(), map );
         shellImage = new Image( "shell.png" );
+        new Thread( new ReceiveData() ).start();
     }
 
-    private ArrayList<Coordinates> getShipsPosition( String line ) {
-        if ( line == null ) {
-            return null;
-        }
-        String[] splitLine = line.split( ";" );
-        ArrayList<Coordinates> coordinatesArrayList = new ArrayList<Coordinates> ();
-        for ( int i = 0; i < splitLine.length; ) {
-            int num = Integer.parseInt( splitLine[i++] );
-            if ( num == number ) {
-                i += 3;
+    private void getShipsPosition() {
+        for ( int i = 0; i < stringList.size(); i++ ) {
+            String[] splitLine = stringList.get( i ).split( ";" );
+            int num = Integer.parseInt( splitLine[0] );
+            /*if ( num == number ) {
                 continue;
+            } */
+            if ( splitLine[1].equals( Code.SEND_COORDINATES ) ) {
+                Coordinates coordinates = new Coordinates();
+                coordinates.number = num;
+                coordinates.x = Float.parseFloat( splitLine[2] );
+                coordinates.y = Float.parseFloat( splitLine[3] );
+                coordinates.angle = Float.parseFloat(splitLine[4]);
+                if ( !coordinatesSet.add( coordinates ) ) {
+                    coordinatesSet.remove( new Coordinates( num, 0, 0, 0 ) );
+                }
+                coordinatesSet.add( coordinates );
             }
-            Coordinates coordinates = new Coordinates();
-            coordinates.number = num;
-            coordinates.x = Float.parseFloat( splitLine[i++] );
-            coordinates.y = Float.parseFloat( splitLine[i++] );
-            coordinates.angle = Float.parseFloat(splitLine[i++]);
-            coordinatesArrayList.add( coordinates );
+            if ( splitLine[1].equals( Code.SEND_SHELL ) ) {
+                //Shell ( float currentAngle, float radius , float x, float y, int timeToDestroy, float speed, Image image )
+                shellContainer.add( new Shell( Float.parseFloat( splitLine[2] ), Float.parseFloat( splitLine[3] ),
+                                               Float.parseFloat( splitLine[4] ), Float.parseFloat( splitLine[5] ),
+                                               Integer.parseInt( splitLine[6] ), Float.parseFloat( splitLine[7] ), shellImage.copy() ) );
+            }
         }
-        return  coordinatesArrayList;
     }
 
-    private void drawShips( ArrayList<Coordinates> coordinatesArrayList ) {
-        if ( coordinatesArrayList == null || coordinatesArrayList.size() == 0 ) return;
-        for ( Coordinates coordinates : coordinatesArrayList ) {
-            Image tempImg = shipImage.copy();
+    private void drawShips() {
+        Image tempImg = shipImage.copy();
+        for ( Coordinates coordinates : coordinatesSet ) {
             tempImg.setRotation( (float) Math.toDegrees( -coordinates.angle ) );
             float dX, dY;
             if ( ship.getX() < ship.getHalfWidth() ) {
@@ -99,7 +106,6 @@ public class Game extends BasicGameState {
     }
 
     private boolean isCode( String line ) {
-        if ( line == null ) return true;
         String[] splitLine = line.split( ";" );
         if ( splitLine[0].equals( Code.SET_ID ) ) {
             number = Integer.parseInt( String.valueOf( splitLine[1] ) );
@@ -110,55 +116,35 @@ public class Game extends BasicGameState {
 
     @Override
     public void render ( GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics ) throws SlickException {
-        //image.draw();
-        //map.updateMap();
-
-        String line = server.relieveData();
         ship.draw();
-        graphics.drawString( line == null ? "null" : line, 0, 50 );
-        if ( !isCode( line ) ) {
-            drawShips( getShipsPosition( line ) );
-        }
+        //graphics.drawString( coordinatesSet.toString(), 0, 50 );
+        getShipsPosition();
+        drawShips();
+        stringList.clear();
         shellContainer.updateShells( map.getShiftX(), map.getShiftY() );
     }
 
-
-    public void editNew( Input input ) {
-        keyPressList.removeAll( keyPressList );
+    public void edit( List<Integer> list, Input input ) {
+        list.removeAll( list );
         if (input.isKeyDown( Input.KEY_A ) ) {
-            keyPressList.add( Input.KEY_A );
+            list.add( Input.KEY_A );
         }
         if ( input.isKeyDown( Input.KEY_S ) ) {
-            keyPressList.add( Input.KEY_S );
+            list.add( Input.KEY_S );
         }
         if ( input.isKeyDown( Input.KEY_W ) ) {
-            keyPressList.add( Input.KEY_W );
+            list.add( Input.KEY_W );
         }
         if ( input.isKeyDown( Input.KEY_D ) ) {
-            keyPressList.add( Input.KEY_D );
+            list.add( Input.KEY_D );
         }
     }
 
-    public void editOld( Input input ) {
-        keyPressedList.removeAll( keyPressedList );
-        if (input.isKeyDown( Input.KEY_A ) ) {
-            keyPressedList.add( Input.KEY_A );
-        }
-        if ( input.isKeyDown( Input.KEY_S ) ) {
-            keyPressedList.add( Input.KEY_S );
-        }
-        if ( input.isKeyDown( Input.KEY_W ) ) {
-            keyPressedList.add( Input.KEY_W );
-        }
-        if ( input.isKeyDown( Input.KEY_D ) ) {
-            keyPressedList.add( Input.KEY_D );
-        }
-    }
 
     @Override
     public void update ( GameContainer gameContainer, StateBasedGame stateBasedGame, int i ) throws SlickException {
         Input input = gameContainer.getInput();
-        editNew( input );
+        edit( keyPressList, input );
 
         if ( keyPressList.isEmpty() ) {
             currentKey.removeAll( currentKey );
@@ -188,6 +174,7 @@ public class Game extends BasicGameState {
             if ( currentKey.get( currentKey.size() - 1 ) == Input.KEY_D ) {
                 ship.moveRight();
             }
+            server.sendData( Code.SEND_COORDINATES, ship.getX(), ship.getY(), ship.getCurrentAngle() );
         }
 
         if ( timeBetweenShoot > 0 ) {
@@ -196,16 +183,34 @@ public class Game extends BasicGameState {
         if ( input.isMouseButtonDown( Input.MOUSE_LEFT_BUTTON ) && timeBetweenShoot == 0 ) {
             timeBetweenShoot = 6;
             ship.changeRadius();
-            shellContainer.add( new Shell(
-                    ship.getCurrentAngle() + ship.getAccuracy(),
+            Shell shell = new Shell( ship.getCurrentAngle() + ship.getAccuracy(),
                     ship.getRadius(),
                     ship.getX(), ship.getY(),
                     30, 14.0f,
-                    shellImage.copy() ) );
+                    shellImage.copy() );
+            shellContainer.add( shell );
+            server.sendShell( Code.SEND_SHELL, shell.toString() );
         }
-        ship.updateAngle( Mouse.getX(), Mouse.getY() );
-        server.sendData( number, ship.getX(), ship.getY(), ship.getCurrentAngle() );
+        if ( !ship.updateAngle( Mouse.getX(), Mouse.getY() ) && keyPressList.isEmpty() ) {
+            server.sendData( Code.SEND_COORDINATES, ship.getX(), ship.getY(), ship.getCurrentAngle() );
+        }
 
-        editOld( input );
+        edit( keyPressedList, input );
+    }
+
+    class ReceiveData extends Thread {
+        @Override
+        public void run() {
+            while ( true ) {
+                try {
+                    String line = server.relieveData();
+                    if ( !isCode( line ) ) {
+                        stringList.add( line );
+                    }
+                } catch ( IOException ioEx ) {
+                    System.err.println( "Dannie ne prinyati" );
+                }
+            }
+        }
     }
 }

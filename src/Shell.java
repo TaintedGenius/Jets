@@ -15,9 +15,8 @@ public class Shell extends BasicObject {
     private double calCos;
     private double calSin;
 
-
-    public Shell ( double currentAngle, float radius , float x, float y, int timeToDestroy, float speed, Image image ) throws SlickException {
-        super( (float) (x + Math.cos( currentAngle ) * radius),(float) (y - Math.sin( currentAngle ) * radius), image );
+    public Shell ( float currentAngle, float radius , float x, float y, int timeToDestroy, float speed, Image image ) {
+        super( speed, currentAngle, radius , (float) ( x + Math.cos( currentAngle ) * radius ), (float) ( y - Math.sin( currentAngle ) * radius ), image );
         this.timeToDestroy = timeToDestroy;
 
         calCos = Math.cos( currentAngle ) * speed;
@@ -40,5 +39,17 @@ public class Shell extends BasicObject {
 
     void draw ( float sX, float sY ) {
         image.draw( x - sX - image.getCenterOfRotationX(), y - sY - image.getCenterOfRotationY() );
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(  );
+        sb.append( super.getCurrentAngle() ).append( ";" ).
+           append( super.getRadius() ).append( ";" ).
+           append( super.getX() ).append( ";" ).
+           append( super.getY() ).append( ";" ).
+           append( timeToDestroy ).append( ";" ).
+           append( super.getSpeed() );
+        return sb.toString();
     }
 }
