@@ -183,11 +183,11 @@ public class Game extends BasicGameState {
         }
         if ( input.isMouseButtonDown( Input.MOUSE_LEFT_BUTTON ) && timeBetweenShoot == 0 ) {
             timeBetweenShoot = 6;
-            ship.changeRadius();
+            //ship.changeRadius();
             Shell shell = new Shell( ship.getCurrentAngle() + ship.getAccuracy(),
                     ship.getRadius(),
                     ship.getX(), ship.getY(),
-                    30, 14.0f,
+                    30, 15.0f,
                     shellImage.copy() );
             shellContainer.add( shell );
             server.sendShell( Code.SEND_SHELL, shell.toString() );

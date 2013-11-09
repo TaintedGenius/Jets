@@ -28,10 +28,9 @@ public abstract class BasicObject {
         this.y = y;
         this.currentAngle = currentAngle;
         this.image = image;
-        //radius = x - ( x / 10 );
     }
 
-    public BasicObject ( float speed, float currentAngle,float radius , float x, float y, Image image )  {
+    public BasicObject ( float speed, float currentAngle, float radius , float x, float y, Image image )  {
         this.speed = speed;
         this.x = x;
         this.y = y;
@@ -45,7 +44,7 @@ public abstract class BasicObject {
     }
 
     public float getRadius() {
-        return radius;
+        return 30;
     }
 
     public float getSpeed() {
@@ -63,7 +62,7 @@ public abstract class BasicObject {
 
     public boolean canMove ( double x, double y ) {
         return x >= image.getCenterOfRotationX() && x < mapWeight - image.getCenterOfRotationX()
-                && y >= image.getCenterOfRotationX() && y < mapHeight - image.getCenterOfRotationY();
+                && y >= image.getCenterOfRotationY() && y < mapHeight - image.getCenterOfRotationY();
     }
 
     public float getX() {
