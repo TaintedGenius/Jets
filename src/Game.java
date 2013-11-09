@@ -51,7 +51,7 @@ public class Game extends BasicGameState {
         shipImage = new Image( "ship.png" );
         map = new Map( "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
         ship = new Ship( 5.0f, 3.0f, shipImage, gameContainer.getHeight(), gameContainer.getWidth(), map );
-        shellImage = new Image( "laser1.png" );
+        shellImage = new Image( "laser.png" );
         new Thread( new ReceiveData() ).start();
     }
 
