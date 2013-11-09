@@ -32,7 +32,7 @@ public class Game extends BasicGameState {
 
     private int timeBetweenShoot = 0;
     private List<String> stringList = Collections.synchronizedList( new ArrayList<String>(  ) );
-    private List<Coordinates> coordinatesList = new ArrayList<Coordinates>(  );
+    private Set<Coordinates> coordinatesSet = new LinkedHashSet<Coordinates>(  );
 
     public Game ( int ID ) {
         this.ID = ID;
@@ -55,42 +55,36 @@ public class Game extends BasicGameState {
         new Thread( new ReceiveData() ).start();
     }
 
-    private int isFind( int numb ) {
-        for ( int i = 0; i < coordinatesList.size(); i++ ) {
-            if ( coordinatesList.get( i ).number == numb ) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
     private void getShipsPosition() {
         for ( int i = 0; i < stringList.size(); i++ ) {
             String[] splitLine = stringList.get( i ).split( ";" );
-            if ( splitLine[0].equals( Code.SEND_COORDINATES ) ) {
-                int num = Integer.parseInt( splitLine[1] );
-                if ( num == number ) {
-                    continue;
-                }
+            int num = Integer.parseInt( splitLine[0] );
+            /*if ( num == number ) {
+                continue;
+            } */
+            if ( splitLine[1].equals( Code.SEND_COORDINATES ) ) {
                 Coordinates coordinates = new Coordinates();
                 coordinates.number = num;
                 coordinates.x = Float.parseFloat( splitLine[2] );
                 coordinates.y = Float.parseFloat( splitLine[3] );
                 coordinates.angle = Float.parseFloat(splitLine[4]);
-                int index = isFind( num );
-                if ( index >= 0 ) {
-                    coordinatesList.remove( coordinatesList.get( index ) );
-                    coordinatesList.add( coordinates );
-                } else {
-                    coordinatesList.add( coordinates );
+                if ( !coordinatesSet.add( coordinates ) ) {
+                    coordinatesSet.remove( new Coordinates( num, 0, 0, 0 ) );
                 }
+                coordinatesSet.add( coordinates );
+            }
+            if ( splitLine[1].equals( Code.SEND_SHELL ) ) {
+                //Shell ( float currentAngle, float radius , float x, float y, int timeToDestroy, float speed, Image image )
+                shellContainer.add( new Shell( Float.parseFloat( splitLine[2] ), Float.parseFloat( splitLine[3] ),
+                                               Float.parseFloat( splitLine[4] ), Float.parseFloat( splitLine[5] ),
+                                               Integer.parseInt( splitLine[6] ), Float.parseFloat( splitLine[7] ), shellImage.copy() ) );
             }
         }
     }
 
     private void drawShips() {
         Image tempImg = shipImage.copy();
-        for ( Coordinates coordinates : coordinatesList ) {
+        for ( Coordinates coordinates : coordinatesSet ) {
             tempImg.setRotation( (float) Math.toDegrees( -coordinates.angle ) );
             float dX, dY;
             if ( ship.getX() < ship.getHalfWidth() ) {
@@ -123,49 +117,34 @@ public class Game extends BasicGameState {
     @Override
     public void render ( GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics ) throws SlickException {
         ship.draw();
-        graphics.drawString( coordinatesList.toString(), 0, 50 );
+        //graphics.drawString( coordinatesSet.toString(), 0, 50 );
         getShipsPosition();
         drawShips();
         stringList.clear();
         shellContainer.updateShells( map.getShiftX(), map.getShiftY() );
     }
 
-    public void editNew( Input input ) {
-        keyPressList.removeAll( keyPressList );
+    public void edit( List<Integer> list, Input input ) {
+        list.removeAll( list );
         if (input.isKeyDown( Input.KEY_A ) ) {
-            keyPressList.add( Input.KEY_A );
+            list.add( Input.KEY_A );
         }
         if ( input.isKeyDown( Input.KEY_S ) ) {
-            keyPressList.add( Input.KEY_S );
+            list.add( Input.KEY_S );
         }
         if ( input.isKeyDown( Input.KEY_W ) ) {
-            keyPressList.add( Input.KEY_W );
+            list.add( Input.KEY_W );
         }
         if ( input.isKeyDown( Input.KEY_D ) ) {
-            keyPressList.add( Input.KEY_D );
+            list.add( Input.KEY_D );
         }
     }
 
-    public void editOld( Input input ) {
-        keyPressedList.removeAll( keyPressedList );
-        if (input.isKeyDown( Input.KEY_A ) ) {
-            keyPressedList.add( Input.KEY_A );
-        }
-        if ( input.isKeyDown( Input.KEY_S ) ) {
-            keyPressedList.add( Input.KEY_S );
-        }
-        if ( input.isKeyDown( Input.KEY_W ) ) {
-            keyPressedList.add( Input.KEY_W );
-        }
-        if ( input.isKeyDown( Input.KEY_D ) ) {
-            keyPressedList.add( Input.KEY_D );
-        }
-    }
 
     @Override
     public void update ( GameContainer gameContainer, StateBasedGame stateBasedGame, int i ) throws SlickException {
         Input input = gameContainer.getInput();
-        editNew( input );
+        edit( keyPressList, input );
 
         if ( keyPressList.isEmpty() ) {
             currentKey.removeAll( currentKey );
@@ -195,7 +174,7 @@ public class Game extends BasicGameState {
             if ( currentKey.get( currentKey.size() - 1 ) == Input.KEY_D ) {
                 ship.moveRight();
             }
-            server.sendData( Code.SEND_COORDINATES ,ship.getX(), ship.getY(), ship.getCurrentAngle() );
+            server.sendData( Code.SEND_COORDINATES, ship.getX(), ship.getY(), ship.getCurrentAngle() );
         }
 
         if ( timeBetweenShoot > 0 ) {
@@ -204,16 +183,19 @@ public class Game extends BasicGameState {
         if ( input.isMouseButtonDown( Input.MOUSE_LEFT_BUTTON ) && timeBetweenShoot == 0 ) {
             timeBetweenShoot = 6;
             ship.changeRadius();
-            shellContainer.add( new Shell(
-                    ship.getCurrentAngle() + ship.getAccuracy(),
+            Shell shell = new Shell( ship.getCurrentAngle() + ship.getAccuracy(),
                     ship.getRadius(),
                     ship.getX(), ship.getY(),
                     30, 14.0f,
-                    shellImage.copy() ) );
+                    shellImage.copy() );
+            shellContainer.add( shell );
+            server.sendShell( Code.SEND_SHELL, shell.toString() );
         }
-        ship.updateAngle( Mouse.getX(), Mouse.getY() );
+        if ( !ship.updateAngle( Mouse.getX(), Mouse.getY() ) && keyPressList.isEmpty() ) {
+            server.sendData( Code.SEND_COORDINATES, ship.getX(), ship.getY(), ship.getCurrentAngle() );
+        }
 
-        editOld( input );
+        edit( keyPressedList, input );
     }
 
     class ReceiveData extends Thread {

@@ -9,4 +9,5 @@ final public class Code {
     public static final int PORT = 6000;
     public static final String SET_ID = "0";
     public static final String SEND_COORDINATES = "1";
+    public static final String SEND_SHELL = "2";
 }

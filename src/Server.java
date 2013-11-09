@@ -19,7 +19,7 @@ public class Server {
 
     public Server() {
         try {
-            socket = new Socket( "92.112.249.85", Code.PORT );
+            socket = new Socket( "127.0.0.1", Code.PORT );
             socket.setTcpNoDelay( true );
             streamIn = new DataInputStream( new BufferedInputStream( socket.getInputStream() ) );
             streamOut = new DataOutputStream( socket.getOutputStream() );
@@ -32,15 +32,24 @@ public class Server {
         }*/
     }
 
-    public void sendData( String code ,float x, float y, float currentAngle ) {
+    public void sendData( String code, float x, float y, float currentAngle ) {
         StringBuilder sb = new StringBuilder(  );
         try {
             sb.append( code ).append( ";" ).
-               append( String.valueOf( x ) ).append( ";" ).
-               append( String.valueOf( y ) ).append( ";" ).
-               append( String.valueOf( currentAngle ) ).append( ";" );
+               append( x ).append( ";" ).
+               append( y ).append( ";" ).
+               append( currentAngle );
             streamOut.writeUTF( sb.toString() );
-            streamOut.flush();
+        } catch ( IOException ioEx ) {
+            System.err.println( "Can't send new coordinates of ship" );
+        }
+    }
+
+    public void sendShell( String code, String data ) {
+        StringBuilder sb = new StringBuilder(  );
+        try {
+            sb.append( code ).append( ";" ).append( data );
+            streamOut.writeUTF( sb.toString() );
         } catch ( IOException ioEx ) {
             System.err.println( "Can't send new coordinates of ship" );
         }
