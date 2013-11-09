@@ -51,17 +51,18 @@ public class Game extends BasicGameState {
         shipImage = new Image( "ship.png" );
         map = new Map( "map.jpg", gameContainer.getHeight(), gameContainer.getWidth() );
         ship = new Ship( 5.0f, 3.0f, shipImage, gameContainer.getHeight(), gameContainer.getWidth(), map );
-        shellImage = new Image( "shell.png" );
+        shellImage = new Image( "laser1.png" );
         new Thread( new ReceiveData() ).start();
     }
 
     private void getShipsPosition() {
         for ( int i = 0; i < stringList.size(); i++ ) {
             String[] splitLine = stringList.get( i ).split( ";" );
+            if ( splitLine.length == 0 ) return;
             int num = Integer.parseInt( splitLine[0] );
-            /*if ( num == number ) {
+            if ( num == number ) {
                 continue;
-            } */
+            }
             if ( splitLine[1].equals( Code.SEND_COORDINATES ) ) {
                 Coordinates coordinates = new Coordinates();
                 coordinates.number = num;
