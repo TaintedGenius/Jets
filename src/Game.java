@@ -33,6 +33,7 @@ public class Game extends BasicGameState {
     private int timeBetweenShoot = 0;
     private List<String> stringList = Collections.synchronizedList( new ArrayList<String>(  ) );
     private Set<Coordinates> coordinatesSet = new LinkedHashSet<Coordinates>(  );
+    private Boolean thread = false;
 
     public Game ( int ID ) {
         this.ID = ID;
@@ -58,7 +59,6 @@ public class Game extends BasicGameState {
     private void getShipsPosition() {
         for ( int i = 0; i < stringList.size(); i++ ) {
             String[] splitLine = stringList.get( i ).split( ";" );
-            if ( splitLine.length == 0 ) return;
             int num = Integer.parseInt( splitLine[0] );
             if ( num == number ) {
                 continue;
@@ -76,9 +76,11 @@ public class Game extends BasicGameState {
             }
             if ( splitLine[1].equals( Code.SEND_SHELL ) ) {
                 //Shell ( float currentAngle, float radius , float x, float y, int timeToDestroy, float speed, Image image )
+                //System.out.println( stringList.toString() );
                 shellContainer.add( new Shell( Float.parseFloat( splitLine[2] ), Float.parseFloat( splitLine[3] ),
                                                Float.parseFloat( splitLine[4] ), Float.parseFloat( splitLine[5] ),
                                                Integer.parseInt( splitLine[6] ), Float.parseFloat( splitLine[7] ), shellImage.copy() ) );
+                //System.out.println(  System.currentTimeMillis() - Long.parseLong( splitLine[8] ) );
             }
         }
     }
@@ -118,7 +120,11 @@ public class Game extends BasicGameState {
     @Override
     public void render ( GameContainer gameContainer, StateBasedGame stateBasedGame, Graphics graphics ) throws SlickException {
         ship.draw();
-        //graphics.drawString( coordinatesSet.toString(), 0, 50 );
+        try {
+            Thread.sleep( 3 );
+        } catch ( InterruptedException ex ) {
+            System.out.print( "!!!" );
+        }
         getShipsPosition();
         drawShips();
         stringList.clear();
