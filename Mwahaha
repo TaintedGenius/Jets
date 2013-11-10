@@ -1,0 +1,55 @@
+package com.company;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class AddVerbForm extends JFrame {
+
+    private JLabel[] labMas = new JLabel[19];
+    private JTextField[] tfMas = new JTextField[17];
+    private JRadioButton[] rbMas = new JRadioButton[7];
+    private JButton bDone;
+
+    public AddVerbForm() {
+        super("Добавление глагола");
+        setSize(530,200);
+        setLayout(new FlowLayout());
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setLocation(getToolkit().getScreenSize().width/2 - getWidth()/2, getToolkit().getScreenSize().height/2 - getHeight()/2);
+        setResizable(false);
+
+        labMas[0] = new JLabel("Инфинитив");
+        labMas[1] = new JLabel("Вид глагола");
+        labMas[2] = new JLabel("Пр.вр. м.р.");
+        labMas[3] = new JLabel("Пр.вр. ж.р.");
+        labMas[4] = new JLabel("Пр.вр. с.р.");
+        labMas[5] = new JLabel("Пр.вр. мн.ч.");
+        labMas[6] = new JLabel("Наст.вр. 1л.ед.ч.");
+        labMas[7] = new JLabel("Наст.вр. 2л.ед.ч.");
+        labMas[8] = new JLabel("Наст.вр. 3л.ед.ч.");
+        labMas[9] = new JLabel("Наст.вр. 1л.мн.ч.");
+        labMas[10] = new JLabel("Наст.вр. 2л.мн.ч.");
+        labMas[11] = new JLabel("Наст.вр. 3л.мн.ч.");
+        labMas[12] = new JLabel("Буд.вр. 1л.ед.ч.");
+        labMas[13] = new JLabel("Буд.вр. 2л.ед.ч.");
+        labMas[14] = new JLabel("Буд.вр. 3л.ед.ч.");
+        labMas[15] = new JLabel("Буд.вр. 1л.мн.ч.");
+        labMas[16] = new JLabel("Буд.вр. 2л.мн.ч.");
+        labMas[17] = new JLabel("Буд.вр. 3л.мн.ч.");
+        labMas[18] = new JLabel("Вопрос");
+
+        rbMas[0] = new JRadioButton("соверш.",true);
+        rbMas[1] = new JRadioButton("несоверш.  ",false);
+        rbMas[2] = new JRadioButton("кого?чего? ",false);
+        rbMas[3] = new JRadioButton("кому?чему? ",false);
+        rbMas[4] = new JRadioButton("кого?что?  ",false);
+        rbMas[5] = new JRadioButton("кем?чем?   ",false);
+        rbMas[6] = new JRadioButton("(в)ком?чём?",false);
+
+    }
+
+
+    public static void main(String[] args) {
+	// write your code here
+    }
+}
